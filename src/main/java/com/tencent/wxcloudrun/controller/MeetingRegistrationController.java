@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 登记信息Controller
@@ -169,6 +170,42 @@ public class MeetingRegistrationController
     {
 
         return  meetingRegistrationService.checkNumberUnique(meetingRegistration);
+    }
+
+
+
+    @GetMapping("/statisticsMeetingRegistrationSignIndex")
+    public String statisticsMeetingRegistrationSignIndex(MeetingRegistration meetingRegistration, ModelMap mmap)
+    {
+
+        return prefix + "/statisticsMeetingRegistrationSign";
+    }
+    @PostMapping("/statisticsMeetingRegistrationSign")
+    @ResponseBody
+    public TableDataInfo statisticsMeetingRegistrationSign(HttpServletRequest request)
+    {
+
+
+
+        TableDataInfo tableDataInfo= meetingRegistrationService.statisticsMeetingRegistrationSign(null);
+        return tableDataInfo;
+    }
+
+    @GetMapping("/infoMeetingRegistrationSignIndex")
+    public String infoMeetingRegistrationSignIndex(MeetingRegistration meetingRegistration, ModelMap mmap)
+    {
+
+        return prefix + "/infoMeetingRegistrationSign";
+    }
+    @PostMapping("/infoMeetingRegistrationSign")
+    @ResponseBody
+    public TableDataInfo infoMeetingRegistrationSign(HttpServletRequest request)
+    {
+
+
+
+        TableDataInfo tableDataInfo= meetingRegistrationService.infoMeetingRegistrationSign(null);
+        return tableDataInfo;
     }
 
 

@@ -451,4 +451,128 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         </trim>
     </insert>
 
+
+
+
+    <select id="statisticsMeetingRegistrationSign"  parameterType="java.util.Map" resultType="java.util.Map" >
+        <![CDATA[
+      SELECT
+            sd.province_area AS 省区,
+            COUNT(
+                    DISTINCT CASE
+                                 WHEN sd.customer_type IN (1, 2) THEN sd.id
+                                 ELSE NULL
+                END
+                ) AS 应签到人数,
+            COUNT(
+                    DISTINCT CASE
+                                 WHEN sd.customer_type IN (1, 2)
+                                     AND ci.userid IS NOT NULL THEN sd.id
+                                 ELSE NULL
+                END
+                ) AS 已签到客户数量,
+            SUM(sd.accompanying_personnel) AS 随行人员数量,
+            COUNT(
+                    DISTINCT CASE
+                                 WHEN sd.customer_type = 2 THEN sd.id
+                                 ELSE NULL
+                END
+                ) AS 意向客户数量,
+            COUNT(
+                    DISTINCT CASE
+                                 WHEN sd.customer_type = 1
+                                     AND ci.userid IS NULL THEN sd.id
+                                 ELSE NULL
+                END
+                ) AS 未签到经销商数量,
+            COUNT(
+                    DISTINCT CASE
+                                 WHEN sd.customer_type = 2
+                                     AND ci.userid IS NULL THEN sd.id
+                                 ELSE NULL
+                END
+                ) AS 未签到意向客户数量,
+
+            COUNT(
+                    DISTINCT CASE
+                                 WHEN sd.customer_type = 3
+                                     AND ci.userid IS NULL THEN sd.id
+                                 ELSE NULL
+                END
+                ) AS 未签到营销人员数量,
+            '2023-04-27' AS 统计日期
+        FROM
+            `springboot_demo`.`meeting_registration` sd
+            LEFT JOIN (
+            SELECT
+            userid,
+            MIN(checktime) AS checktime
+            FROM
+            `springboot_demo`.`checkin`
+            GROUP BY
+            userid,
+            DATE(checktime)
+            ) ci ON sd.id = ci.userid
+        GROUP BY
+            sd.province_area,
+            DATE(ci.checktime)
+        ORDER BY
+            统计日期 ASC,
+            省区 ASC;
+        ]]>
+    </select>
+
+
+    <select id="infoMeetingRegistrationSign"  parameterType="java.util.Map" resultType="java.util.Map" >
+         <![CDATA[
+        SELECT
+            IFNULL(sd.province_area,'') AS 省区,
+            IFNULL(sd.expand_2,'') AS 区域,
+            IFNULL( sd.customer_type,'') AS 客户分类,
+            IFNULL(sd.attendee_name,'') AS 应签到客户名称,
+            IFNULL( DATE(ci.checktime),'') AS 日期,
+            CASE
+                WHEN ci.userid IS NOT NULL THEN '已签到'
+                ELSE '未签到'
+                END AS 已签到客户状态,
+            IFNULL((
+                SELECT
+                    MIN(checktime)
+                FROM
+                    `springboot_demo`.`checkin`
+                WHERE
+                DATE(checktime) = DATE(ci.checktime)
+            AND HOUR(checktime) < 12
+            AND userid = sd.id
+    ),'') AS 上午签到时间,
+            IFNULL((
+                SELECT
+                    MIN(checktime)
+                FROM
+                    `springboot_demo`.`checkin`
+                WHERE
+                DATE(checktime) = DATE(ci.checktime)
+            AND HOUR(checktime) >= 12
+            AND userid = sd.id
+    ),'') AS 下午签到时间
+        FROM
+            `springboot_demo`.`meeting_registration` sd
+                LEFT JOIN (
+                SELECT
+                    userid,
+                    MIN(checktime) AS checktime
+                FROM
+                    `springboot_demo`.`checkin`
+                GROUP BY
+                    userid,
+                    DATE(checktime)
+            ) ci ON sd.id = ci.userid
+        ORDER BY
+            日期 desc
+
+
+        ]]>
+    </select>
+
+
 </mapper>

@@ -4,6 +4,7 @@ package com.tencent.wxcloudrun.dao;
 import com.tencent.wxcloudrun.dto.MeetingRegistration;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 登记信息Mapper接口
@@ -104,4 +105,19 @@ public interface MeetingRegistrationMapper
      * @return 结果
      */
     public int insertcheckin(MeetingRegistration meetingRegistration);
+
+
+    /**
+     * 统计签到报表
+     * @param param
+     * @return
+     */
+    public List<Map<String,Object>> statisticsMeetingRegistrationSign(Map<String,Object> param);
+
+    /**
+     * 签到明细统计
+     * @param param
+     * @return
+     */
+    public List<Map<String,Object>> infoMeetingRegistrationSign(Map<String,Object> param);
 }

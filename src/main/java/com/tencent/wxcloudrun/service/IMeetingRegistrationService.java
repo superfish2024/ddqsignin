@@ -6,6 +6,7 @@ import com.tencent.wxcloudrun.dto.MeetingRegistrationVo;
 import com.tencent.wxcloudrun.utils.TableDataInfo;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 登记信息Service接口
@@ -90,5 +91,22 @@ public interface IMeetingRegistrationService
     public AjaxResult importZfbData(List<List<String>> dataList );
 
     public AjaxResult sign(String phoneNumber);
+
+
     public String checkNumberUnique(MeetingRegistration meetingRegistration);
+
+
+    /**
+     * 统计签到报表
+     * @param param
+     * @return
+     */
+    public TableDataInfo  statisticsMeetingRegistrationSign(Map<String,Object> param);
+
+    /**
+     * 签到明细统计
+     * @param param
+     * @return
+     */
+    public TableDataInfo infoMeetingRegistrationSign(Map<String,Object> param);
 }

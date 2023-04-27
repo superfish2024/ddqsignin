@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <th:block th:include="include :: header('明细报表')" />
+</head>
+<body class="gray-bg">
+<div class="container-div">
+    <div class="row">
+        <div class="col-sm-12 search-collapse">
+            <form id="formId">
+                <div class="select-list">
+                    <ul>
+                        <li>
+                            <p>省区：</p>
+                            <input type="text" name="customerType"/>
+                        </li>
+                        <li>
+                            <p>区域：</p>
+                            <input type="text" name="provinceArea"/>
+                        </li>
+                        <li>
+                            <p>客户分类：</p>
+                            <input type="text" name="attendeeName"/>
+                        </li>
+                        <li>
+                            <p>应签到客户名称：</p>
+                            <input type="text" name="phoneNumber"/>
+                        </li>
+                        <li>
+                            <p>日期：</p>
+                            <input type="text" name="isTraveling"/>
+                        </li>
+                        <!--                            <li>-->
+                        <!--                                <p>随行人员：</p>-->
+                        <!--                                <input type="text" name="accompanyingPersonnel"/>-->
+                        <!--                            </li>-->
+<!--                        <li>-->
+<!--                            <p>住宿酒店名称：</p>-->
+<!--                            <input type="text" name="hotelName"/>-->
+<!--                        </li>-->
+<!--                        <li>-->
+<!--                            <p>房间号：</p>-->
+<!--                            <input type="text" name="roomNumber"/>-->
+<!--                        </li>-->
+                        <!--                            <li>-->
+                        <!--                                <p>早餐用餐时间：</p>-->
+                        <!--                                <input type="text" name="breakfastTime"/>-->
+                        <!--                            </li>-->
+                        <!--                            <li>-->
+                        <!--                                <p>中餐用餐时间：</p>-->
+                        <!--                                <input type="text" name="lunchTime"/>-->
+                        <!--                            </li>-->
+                        <!--                            <li>-->
+                        <!--                                <p>晚餐用餐时间：</p>-->
+                        <!--                                <input type="text" name="dinnerTime"/>-->
+                        <!--                            </li>-->
+                        <!--                            <li>-->
+                        <!--                                <p>用餐地点：</p>-->
+                        <!--                                <input type="text" name="mealLocation"/>-->
+                        <!--                            </li>-->
+                        <!--                            <li>-->
+                        <!--                                <p>晚宴用餐时间：</p>-->
+                        <!--                                <input type="text" name="banquetTime"/>-->
+                        <!--                            </li>-->
+<!--                        <li>-->
+<!--                            <p>晚宴用餐地点：</p>-->
+<!--                            <input type="text" name="banquetLocation"/>-->
+<!--                        </li>-->
+                        <!--                            <li>-->
+                        <!--                                <p>晚宴坐席：</p>-->
+                        <!--                                <input type="text" name="banquetSeating"/>-->
+                        <!--                            </li>-->
+<!--                        <li>-->
+<!--                            <p>会议时间：</p>-->
+<!--                            <input type="text" name="meetingDate"/>-->
+<!--                        </li>-->
+                        <!--                            <li>-->
+                        <!--                                <p>会议地点：</p>-->
+                        <!--                                <input type="text" name="meetingLocation"/>-->
+                        <!--                            </li>-->
+                        <!--                            <li>-->
+                        <!--                                <p>旅游车辆安排：</p>-->
+                        <!--                                <input type="text" name="tourVehicleArrangement"/>-->
+                        <!--                            </li>-->
+                        <!--                            <li>-->
+                        <!--                                <p>参观工厂车辆安排：</p>-->
+                        <!--                                <input type="text" name="factoryVisitVehicleArrangement"/>-->
+                        <!--                            </li>-->
+                        <!--                            <li>-->
+                        <!--                                <p>会议坐席：</p>-->
+                        <!--                                <input type="text" name="meetingSeating"/>-->
+                        <!--                            </li>-->
+                        <!--                            <li>-->
+                        <!--                                <p>是否有已意向客户：</p>-->
+                        <!--                                <input type="text" name="hasIntentionalCustomers"/>-->
+                        <!--                            </li>-->
+                        <!--                            <li>-->
+                        <!--                                <p>是否有已意向客户：</p>-->
+                        <!--                                <input type="text" name="expand1"/>-->
+                        <!--                            </li>-->
+                        <!--                            <li>-->
+                        <!--                                <p>是否有已意向客户：</p>-->
+                        <!--                                <input type="text" name="expand2"/>-->
+                        <!--                            </li>-->
+                        <!--                            <li>-->
+                        <!--                                <p>是否有已意向客户：</p>-->
+                        <!--                                <input type="text" name="expand3"/>-->
+                        <!--                            </li>-->
+                        <!--                            <li>-->
+                        <!--                                <p>是否有已意向客户：</p>-->
+                        <!--                                <input type="text" name="expand4"/>-->
+                        <!--                            </li>-->
+                        <!--                            <li>-->
+                        <!--                                <p>是否有已意向客户：</p>-->
+                        <!--                                <input type="text" name="expand5"/>-->
+                        <!--                            </li>-->
+                        <li>
+                            <a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
+                            <a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i class="fa fa-refresh"></i>&nbsp;重置</a>
+                        </li>
+                    </ul>
+                </div>
+            </form>
+        </div>
+
+        <div class="btn-group-sm" id="toolbar" role="group">
+
+        </div>
+        <div class="col-sm-12 select-table table-striped">
+            <table id="bootstrap-table"></table>
+        </div>
+    </div>
+</div>
+<th:block th:include="include :: footer" />
+<script th:inline="javascript">
+    var editFlag = true;
+    var removeFlag = true;
+    var prefix = ctx + "meetingRegistration/meetingRegistration";
+
+    $(function() {
+        var options = {
+            url: prefix + "/infoMeetingRegistrationSign",
+
+            modalName: "登记信息",
+            pageSize:100000,
+            pageList:[100000],
+            columns: [{
+                checkbox: true
+            },
+
+                {
+                    field : '省区',
+                    title : '省区'
+                },
+                {
+                    field : '区域',
+                    title : '区域'
+                },   {
+                    field : '客户分类',
+                    title : '客户分类'
+                },
+                {
+                    field : '应签到客户名称',
+                    title : '应签到客户名称'
+                },
+                {
+                    field : '日期',
+                    title : '日期'
+                },
+                {
+                    field : '已签到客户状态',
+                    title : '已签到客户状态',
+                    formatter: function(value, row, index) {
+                        var actions = [];
+
+                        if(value=='未签到'){
+                            actions.push('<span class="badge badge-danger">'+value+'</span>' );
+                        }else{
+                            actions.push('<span class="badge badge-warning">'+value+'</span>' );
+                        }
+
+                        return actions.join('');
+                    }
+
+                },
+                {
+                    field : '上午签到时间',
+                    title : '上午签到时间'
+                },
+                {
+                    field : '下午签到时间',
+                    title : '下午签到时间'
+                }
+                // {
+                //     field : 'expand2',
+                //     title : '是否有已意向客户'
+                // },
+                // {
+                //     field : 'expand3',
+                //     title : '是否有已意向客户'
+                // },
+                // {
+                //     field : 'expand4',
+                //     title : '是否有已意向客户'
+                // },
+                // {
+                //     field : 'expand5',
+                //     title : '是否有已意向客户'
+                // },
+            ]
+        };
+        $.table.init(options);
+    });
+</script>
+
+
+</body>
+</html>

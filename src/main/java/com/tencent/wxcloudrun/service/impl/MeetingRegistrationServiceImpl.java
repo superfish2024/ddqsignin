@@ -13,10 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * 登记信息Service业务层处理
@@ -299,5 +296,32 @@ public class MeetingRegistrationServiceImpl implements IMeetingRegistrationServi
 
 
         return "1";
+    }
+
+
+    /**
+     * 统计签到报表
+     *
+     * @param param
+     * @return
+     */
+    @Override
+    public TableDataInfo  statisticsMeetingRegistrationSign(Map<String, Object> param) {
+        List<Map<String, Object>> list =  meetingRegistrationMapper.statisticsMeetingRegistrationSign(param);
+        return getDataTable(list,list.size());
+
+    }
+
+    /**
+     * 签到明细统计
+     *
+     * @param param
+     * @return
+     */
+    @Override
+    public TableDataInfo   infoMeetingRegistrationSign(Map<String, Object> param) {
+        List<Map<String, Object>> list =  meetingRegistrationMapper.infoMeetingRegistrationSign(param);
+        return getDataTable(list,list.size());
+
     }
 }
