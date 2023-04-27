@@ -24,6 +24,8 @@ public class IndexController {
 
   @GetMapping(value = "/test")
   public   String  test() {
-    return prefix+"info";
+    return prefix + "info";
+
   }
+
 }

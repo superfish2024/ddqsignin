@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <th:block th:include="include :: header('登记信息列表')" />
+</head>
+<body class="gray-bg">
+     <div class="container-div">
+        <div class="row">
+            <div class="col-sm-12 search-collapse">
+                <form id="formId">
+                    <div class="select-list">
+                        <ul>
+                            <li>
+                                <p>客户类别：</p>
+                                <input type="text" name="customerType"/>
+                            </li>
+                            <li>
+                                <p>所属省区：</p>
+                                <input type="text" name="provinceArea"/>
+                            </li>
+                            <li>
+                                <p>参会人名称：</p>
+                                <input type="text" name="attendeeName"/>
+                            </li>
+                            <li>
+                                <p>联系电话：</p>
+                                <input type="text" name="phoneNumber"/>
+                            </li>
+                            <li>
+                                <p>是否参加旅游：</p>
+                                <input type="text" name="isTraveling"/>
+                            </li>
+<!--                            <li>-->
+<!--                                <p>随行人员：</p>-->
+<!--                                <input type="text" name="accompanyingPersonnel"/>-->
+<!--                            </li>-->
+                            <li>
+                                <p>住宿酒店名称：</p>
+                                <input type="text" name="hotelName"/>
+                            </li>
+                            <li>
+                                <p>房间号：</p>
+                                <input type="text" name="roomNumber"/>
+                            </li>
+<!--                            <li>-->
+<!--                                <p>早餐用餐时间：</p>-->
+<!--                                <input type="text" name="breakfastTime"/>-->
+<!--                            </li>-->
+<!--                            <li>-->
+<!--                                <p>中餐用餐时间：</p>-->
+<!--                                <input type="text" name="lunchTime"/>-->
+<!--                            </li>-->
+<!--                            <li>-->
+<!--                                <p>晚餐用餐时间：</p>-->
+<!--                                <input type="text" name="dinnerTime"/>-->
+<!--                            </li>-->
+<!--                            <li>-->
+<!--                                <p>用餐地点：</p>-->
+<!--                                <input type="text" name="mealLocation"/>-->
+<!--                            </li>-->
+<!--                            <li>-->
+<!--                                <p>晚宴用餐时间：</p>-->
+<!--                                <input type="text" name="banquetTime"/>-->
+<!--                            </li>-->
+                            <li>
+                                <p>晚宴用餐地点：</p>
+                                <input type="text" name="banquetLocation"/>
+                            </li>
+<!--                            <li>-->
+<!--                                <p>晚宴坐席：</p>-->
+<!--                                <input type="text" name="banquetSeating"/>-->
+<!--                            </li>-->
+                            <li>
+                                <p>会议时间：</p>
+                                <input type="text" name="meetingDate"/>
+                            </li>
+<!--                            <li>-->
+<!--                                <p>会议地点：</p>-->
+<!--                                <input type="text" name="meetingLocation"/>-->
+<!--                            </li>-->
+<!--                            <li>-->
+<!--                                <p>旅游车辆安排：</p>-->
+<!--                                <input type="text" name="tourVehicleArrangement"/>-->
+<!--                            </li>-->
+<!--                            <li>-->
+<!--                                <p>参观工厂车辆安排：</p>-->
+<!--                                <input type="text" name="factoryVisitVehicleArrangement"/>-->
+<!--                            </li>-->
+<!--                            <li>-->
+<!--                                <p>会议坐席：</p>-->
+<!--                                <input type="text" name="meetingSeating"/>-->
+<!--                            </li>-->
+<!--                            <li>-->
+<!--                                <p>是否有已意向客户：</p>-->
+<!--                                <input type="text" name="hasIntentionalCustomers"/>-->
+<!--                            </li>-->
+<!--                            <li>-->
+<!--                                <p>是否有已意向客户：</p>-->
+<!--                                <input type="text" name="expand1"/>-->
+<!--                            </li>-->
+<!--                            <li>-->
+<!--                                <p>是否有已意向客户：</p>-->
+<!--                                <input type="text" name="expand2"/>-->
+<!--                            </li>-->
+<!--                            <li>-->
+<!--                                <p>是否有已意向客户：</p>-->
+<!--                                <input type="text" name="expand3"/>-->
+<!--                            </li>-->
+<!--                            <li>-->
+<!--                                <p>是否有已意向客户：</p>-->
+<!--                                <input type="text" name="expand4"/>-->
+<!--                            </li>-->
+<!--                            <li>-->
+<!--                                <p>是否有已意向客户：</p>-->
+<!--                                <input type="text" name="expand5"/>-->
+<!--                            </li>-->
+                            <li>
+                                <a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
+                                <a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i class="fa fa-refresh"></i>&nbsp;重置</a>
+                            </li>
+                        </ul>
+                    </div>
+                </form>
+            </div>
+
+            <div class="btn-group-sm" id="toolbar" role="group">
+                <a class="btn btn-success" onclick="$.operate.add()" ssss="meetingRegistration:meetingRegistration:add">
+                    <i class="fa fa-plus"></i> 添加
+                </a>
+                <a class="btn btn-primary single disabled" onclick="$.operate.edit()" ssss="meetingRegistration:meetingRegistration:edit">
+                    <i class="fa fa-edit"></i> 修改
+                </a>
+                <a class="btn btn-danger multiple disabled" onclick="$.operate.removeAll()" ssss="meetingRegistration:meetingRegistration:remove">
+                    <i class="fa fa-remove"></i> 删除
+                </a>
+
+                <a class="btn btn-info" onclick="$.table.importExcel()" ssss="system:user:import">
+                    <i class="fa fa-upload"></i> 导入
+                </a>
+            </div>
+            <div class="col-sm-12 select-table table-striped">
+                <table id="bootstrap-table"></table>
+            </div>
+        </div>
+    </div>
+    <th:block th:include="include :: footer" />
+    <script th:inline="javascript">
+        var editFlag = true;
+        var removeFlag = true;
+        var prefix = ctx + "meetingRegistration/meetingRegistration";
+
+        $(function() {
+            var options = {
+                url: prefix + "/list",
+                createUrl: prefix + "/add",
+                updateUrl: prefix + "/edit/{id}",
+                removeUrl: prefix + "/remove",
+                exportUrl: prefix + "/export",
+                importUrl: prefix + "/importZfbData",
+                modalName: "登记信息",
+                pageSize:50,
+                pageList:[50,100,250,500,1000,1500,2000,2500],
+                columns: [{
+                    checkbox: true
+                },
+                    {
+                        title: '操作',
+                        align: 'center',
+                        formatter: function(value, row, index) {
+                            var actions = [];
+                            actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="javascript:void(0)" onclick="$.operate.edit(\'' + row.id + '\')"><i class="fa fa-edit"></i>编辑</a> ');
+                            actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="javascript:void(0)" onclick="$.operate.remove(\'' + row.id + '\')"><i class="fa fa-remove"></i>删除</a>');
+                            return actions.join('');
+                        }
+                    },
+                {
+                    field : 'customerType', 
+                    title : '客户类别'
+                },
+                {
+                    field : 'provinceArea', 
+                    title : '所属省区'
+                },
+                {
+                    field : 'attendeeName', 
+                    title : '参会人名称'
+                },
+                {
+                    field : 'phoneNumber', 
+                    title : '联系电话'
+                },
+                {
+                    field : 'isTraveling', 
+                    title : '是否参加旅游'
+                },
+                {
+                    field : 'accompanyingPersonnel', 
+                    title : '随行人员'
+                },
+                {
+                    field : 'hotelName', 
+                    title : '住宿酒店名称'
+                },
+                {
+                    field : 'roomNumber', 
+                    title : '房间号'
+                },
+                {
+                    field : 'breakfastTime', 
+                    title : '早餐/中餐/晚餐<br>用餐时间',
+                    formatter: function(value, row, index) {
+                        var actions = [];
+                        if(value){
+                            actions.push('<span class="badge badge-violet">'+value+'</span>' );
+                        }else{
+                            actions.push('<span class="badge badge-violet">-</span>' );
+                        }
+                        actions.push('<br>' );
+                        if(row.lunchTime){
+                            actions.push('<span class="badge badge-danger">'+row.lunchTime+'</span>' );
+                        }else{
+                            actions.push('<span class="badge badge-danger">-</span>' );
+                        }
+                        actions.push('<br>' );
+                        if(row.dinnerTime){
+                            actions.push('<span class="badge badge-warning">'+row.dinnerTime+'</span>' );
+                        }else{
+                            actions.push('<span class="badge badge-warning">-</span>' );
+                        }
+
+                        return actions.join('');
+                    }
+                },
+                // {
+                //     field : 'lunchTime',
+                //     title : '中餐用餐时间'
+                // },
+                // {
+                //     field : 'dinnerTime',
+                //     title : '晚餐用餐时间'
+                // },
+                {
+                    field : 'mealLocation', 
+                    title : '用餐地点'
+                },
+                {
+                    field : 'banquetTime', 
+                    title : '晚宴用餐时间'
+                },
+                {
+                    field : 'banquetLocation', 
+                    title : '用餐地点'
+                },
+                {
+                    field : 'banquetSeating', 
+                    title : '晚宴坐席'
+                },
+                {
+                    field : 'meetingDate', 
+                    title : '会议时间'
+                },
+                {
+                    field : 'meetingLocation', 
+                    title : '会议地点'
+                },
+                {
+                    field : 'tourVehicleArrangement', 
+                    title : '旅游车辆安排'
+                },
+                {
+                    field : 'factoryVisitVehicleArrangement', 
+                    title : '参观工厂车辆'
+                },
+                {
+                    field : 'meetingSeating', 
+                    title : '会议坐席'
+                },
+                {
+                    field : 'hasIntentionalCustomers', 
+                    title : '意向客户'
+                },
+                {
+                    field : 'expand1', 
+                    title : '状态',
+                    formatter: function(value, row, index) {
+                        var actions = [];
+
+                            if ("2"== ('' + value)) {
+
+                                actions.push('<span class="badge badge-danger">无效</span>' );
+
+
+                            }else    if ("1"== ('' + value)) {
+
+                                actions.push('<span class="badge badge-warning">有效</span>' );
+
+
+                            }
+
+
+
+                        return actions.join('');
+                    }
+                }
+                // {
+                //     field : 'expand2',
+                //     title : '是否有已意向客户'
+                // },
+                // {
+                //     field : 'expand3',
+                //     title : '是否有已意向客户'
+                // },
+                // {
+                //     field : 'expand4',
+                //     title : '是否有已意向客户'
+                // },
+                // {
+                //     field : 'expand5',
+                //     title : '是否有已意向客户'
+                // },
+               ]
+            };
+            $.table.init(options);
+        });
+    </script>
+
+     <!-- 导入区域 -->
+     <script id="importTpl" type="text/template">
+         <form enctype="multipart/form-data" class="mt20 mb10">
+             <div class="col-xs-offset-1">
+                 <input type="file" id="file" name="file"/>
+                 <div class="mt10 pt5">
+
+                 </div>
+                 <font color="red" class="pull-left mt10">
+                     提示：仅允许导入“xls”或“xlsx”格式文件！
+                 </font>
+             </div>
+         </form>
+     </script>
+</body>
+</html>
