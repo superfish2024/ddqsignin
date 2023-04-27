@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <th:block th:include="include :: header('新增货架')" />
+    <th:block th:include="include :: select2-css" />
+    <th:block th:include="include :: bootstrap-select-css" />
+</head>
+<body class="white-bg">
+    <div class="wrapper wrapper-content animated fadeInRight ibox-content">
+        <form class="form-horizontal m" id="form-samShelf-add">
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">工厂：<span style="color: red; ">*</span></label>
+                        <div class="col-sm-8">
+
+                            <select name="pkOrgId"   class="form-control"  th:with="type=${pkOrgList}" required>
+<!--                                <option value="">所有</option>-->
+                                <option th:each="dict : ${type}" th:text="${dict.name}" th:value="${dict.pk_org}"></option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">货架编号：<span style="color: red; ">*</span></label>
+                        <div class="col-sm-8">
+                            <input name="number" id="number" class="form-control" type="text" required>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">货架名：<span style="color: red; ">*</span></label>
+                            <div class="col-sm-8">
+                                <input name="name" class="form-control" type="text" required>
+                            </div>
+                        </div>
+                </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">货架位置：<span style="color: red; ">*</span></label>
+                            <div class="col-sm-8">
+
+
+                                <select name="place"  class="form-control m-b" th:with="type=${@dict.getType('shelf_place')}" required>
+
+                                    <option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}"    ></option>
+                                </select>
+
+                            </div>
+                        </div>
+                    </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">备注：</label>
+                        <div class="col-sm-8">
+                            <textarea  id="remark" name="remark" class="form-control"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+<!--            <div class="form-group">    -->
+<!--                <label class="col-sm-3 control-label">状态 0闲置1无效 2 占用：</label>-->
+<!--                <div class="col-sm-8">-->
+<!--                    <input name="state" class="form-control" type="text">-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="form-group">    -->
+<!--                <label class="col-sm-3 control-label">逻辑删除0有效1删除：</label>-->
+<!--                <div class="col-sm-8">-->
+<!--                    <input name="dr" class="form-control" type="text">-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="form-group">    -->
+<!--                <label class="col-sm-3 control-label">创建时间：</label>-->
+<!--                <div class="col-sm-8">-->
+<!--                    <input name="createdate" class="form-control" type="text">-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="form-group">    -->
+<!--                <label class="col-sm-3 control-label">创建人：</label>-->
+<!--                <div class="col-sm-8">-->
+<!--                    <input name="create" class="form-control" type="text">-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="form-group">    -->
+<!--                <label class="col-sm-3 control-label">修改时间：</label>-->
+<!--                <div class="col-sm-8">-->
+<!--                    <input name="reviserdate" class="form-control" type="text">-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="form-group">    -->
+<!--                <label class="col-sm-3 control-label">修改人：</label>-->
+<!--                <div class="col-sm-8">-->
+<!--                    <input name="reviser" class="form-control" type="text">-->
+<!--                </div>-->
+<!--            </div>-->
+        </form>
+    </div>
+    <th:block th:include="include :: footer" />
+    <th:block th:include="include :: select2-js" />
+    <th:block th:include="include :: bootstrap-select-js" />
+    <script th:src="@{/js/basics/samShelf/add_edit.js?v=18}"></script>
+    <script type="text/javascript">
+        var prefix = ctx + "basics/samShelf"
+        $("#form-samShelf-add").validate(validateFuns);
+
+        function submitHandler() {
+            if ($.validate.form()) {
+                $.operate.save(prefix + "/add", $('#form-samShelf-add').serialize());
+            }
+        }
+    </script>
+</body>
+</html>

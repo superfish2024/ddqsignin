@@ -1,5 +1,6 @@
 package com.tencent.wxcloudrun.controller;
 
+import com.tencent.wxcloudrun.config.ApiResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 
 public class IndexController {
+  private String prefix = "info/";
 
   /**
    * 主页页面
@@ -16,7 +18,12 @@ public class IndexController {
    */
   @GetMapping
   public String index() {
-    return "index";
+    return "indexTo";
   }
 
+
+  @GetMapping(value = "/test")
+  public   String  test() {
+    return prefix+"info";
+  }
 }

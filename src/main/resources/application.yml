@@ -5,13 +5,16 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://${MYSQL_ADDRESS}/${MYSQL_DATABASE:springboot_demo}
-    username: ${MYSQL_USERNAME}
-    password: ${MySQL_PASSWORD}
+    url: jdbc:mysql://sh-cynosdbmysql-grp-dpkowusw.sql.tencentcdb.com:23985/springboot_demo
+    username: root
+    password: Sunnish1986
   mvc:
     view:
       suffix: .html
       prefix: /
+  resources:
+    static-locations: classpath:/templates/,classpath:/static/,classpath:/public/
+
 
 mybatis:
   mapper-locations: classpath*:mapper/*Mapper.xml

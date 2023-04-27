@@ -1,0 +1,407 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tencent.wxcloudrun.dao.MeetingRegistrationMapper">
+    
+    <resultMap type="com.tencent.wxcloudrun.dto.MeetingRegistration" id="MeetingRegistrationResult">
+        <result property="id"    column="id"    />
+        <result property="customerType"    column="customer_type"    />
+        <result property="provinceArea"    column="province_area"    />
+        <result property="attendeeName"    column="attendee_name"    />
+        <result property="phoneNumber"    column="phone_number"    />
+        <result property="isTraveling"    column="is_traveling"    />
+        <result property="accompanyingPersonnel"    column="accompanying_personnel"    />
+        <result property="hotelName"    column="hotel_name"    />
+        <result property="roomNumber"    column="room_number"    />
+        <result property="breakfastTime"    column="breakfast_time"    />
+        <result property="lunchTime"    column="lunch_time"    />
+        <result property="dinnerTime"    column="dinner_time"    />
+        <result property="mealLocation"    column="meal_location"    />
+        <result property="banquetTime"    column="banquet_time"    />
+        <result property="banquetLocation"    column="banquet_location"    />
+        <result property="banquetSeating"    column="banquet_seating"    />
+        <result property="meetingDate"    column="meeting_date"    />
+        <result property="meetingLocation"    column="meeting_location"    />
+        <result property="tourVehicleArrangement"    column="tour_vehicle_arrangement"    />
+        <result property="factoryVisitVehicleArrangement"    column="factory_visit_vehicle_arrangement"    />
+        <result property="meetingSeating"    column="meeting_seating"    />
+        <result property="hasIntentionalCustomers"    column="has_intentional_customers"    />
+        <result property="createDate"    column="create_date"    />
+        <result property="expand1"    column="expand_1"    />
+        <result property="expand2"    column="expand_2"    />
+        <result property="expand3"    column="expand_3"    />
+        <result property="expand4"    column="expand_4"    />
+        <result property="expand5"    column="expand_5"    />
+    </resultMap>
+
+    <!--表名-->
+    <sql id="table">
+        meeting_registration
+    </sql>
+
+    <!--表名 带别名-->
+    <sql id="tableas">
+        meeting_registration  as my
+    </sql>
+
+
+    <sql id="selectMeetingRegistrationVo">
+        select my.id, my.customer_type, my.province_area, my.attendee_name, my.phone_number, my.is_traveling, my.accompanying_personnel, my.hotel_name, my.room_number, my.breakfast_time, my.lunch_time, my.dinner_time, my.meal_location, my.banquet_time, my.banquet_location, my.banquet_seating, my.meeting_date, my.meeting_location, my.tour_vehicle_arrangement, my.factory_visit_vehicle_arrangement, my.meeting_seating, my.has_intentional_customers, my.create_date, my.expand_1, my.expand_2, my.expand_3, my.expand_4, my.expand_5    </sql>
+
+
+    <!--查询条件-->
+    <sql id="condition">
+                   <if test="customerType != null  and customerType != ''">
+                                 and my.customer_type  like concat('%', #{customerType}, '%')
+                         </if>
+                         <if test="provinceArea != null  and provinceArea != ''">
+                                 and my.province_area   like concat('%', #{provinceArea}, '%')
+                         </if>
+                         <if test="attendeeName != null  and attendeeName != ''">
+                                 and my.attendee_name like concat('%', #{attendeeName}, '%')
+                         </if>
+                         <if test="phoneNumber != null  and phoneNumber != ''">
+                                 and my.phone_number like concat('%', #{phoneNumber}, '%')
+                         </if>
+                         <if test="isTraveling != null  and isTraveling != ''">
+                                 and my.is_travelinglike like concat('%', #{isTraveling}, '%')
+                         </if>
+                         <if test="accompanyingPersonnel != null  and accompanyingPersonnel != ''">
+                                 and my.accompanying_personnel like  concat('%', #{accompanyingPersonnel}, '%')
+                         </if>
+                         <if test="hotelName != null  and hotelName != ''">
+                                 and my.hotel_name like  concat('%', #{hotelName}, '%')
+                         </if>
+                         <if test="roomNumber != null  and roomNumber != ''">
+                                 and my.room_number like  concat('%', #{roomNumber}, '%')
+                         </if>
+                         <if test="breakfastTime != null  and breakfastTime != ''">
+                                 and my.breakfast_time  like  concat('%', #{breakfastTime}, '%')
+                         </if>
+                         <if test="lunchTime != null  and lunchTime != ''">
+                                 and my.lunch_time  like  concat('%', #{lunchTime}, '%')
+                         </if>
+                         <if test="dinnerTime != null  and dinnerTime != ''">
+                                 and my.dinner_time like  concat('%', #{dinnerTime}, '%')
+                         </if>
+                         <if test="mealLocation != null  and mealLocation != ''">
+                                 and my.meal_location like  concat('%', #{mealLocation}, '%')
+                         </if>
+                         <if test="banquetTime != null  and banquetTime != ''">
+                                 and my.banquet_time  like  concat('%', #{banquetTime}, '%')
+                         </if>
+                         <if test="banquetLocation != null  and banquetLocation != ''">
+                                 and my.banquet_location  like  concat('%', #{banquetLocation}, '%')
+                         </if>
+                         <if test="banquetSeating != null  and banquetSeating != ''">
+                                 and my.banquet_seating like  concat('%', #{banquetSeating}, '%')
+                         </if>
+                         <if test="meetingDate != null  and meetingDate != ''">
+                                 and my.meeting_date = #{meetingDate}
+                         </if>
+                         <if test="meetingLocation != null  and meetingLocation != ''">
+                                 and my.meeting_location = #{meetingLocation}
+                         </if>
+                         <if test="tourVehicleArrangement != null  and tourVehicleArrangement != ''">
+                                 and my.tour_vehicle_arrangement = #{tourVehicleArrangement}
+                         </if>
+                         <if test="factoryVisitVehicleArrangement != null  and factoryVisitVehicleArrangement != ''">
+                                 and my.factory_visit_vehicle_arrangement = #{factoryVisitVehicleArrangement}
+                         </if>
+                         <if test="meetingSeating != null  and meetingSeating != ''">
+                                 and my.meeting_seating = #{meetingSeating}
+                         </if>
+                         <if test="hasIntentionalCustomers != null  and hasIntentionalCustomers != ''">
+                                 and my.has_intentional_customers = #{hasIntentionalCustomers}
+                         </if>
+                          <if test="createDate != null  and createDate != ''">
+                                 and my.create_date = #{createDate}
+                         </if>
+                         <if test="expand1 != null  and expand1 != ''">
+                                 and my.expand_1 = #{expand1}
+                         </if>
+                         <if test="expand2 != null  and expand2 != ''">
+                                 and my.expand_2 = #{expand2}
+                         </if>
+                         <if test="expand3 != null  and expand3 != ''">
+                                 and my.expand_3 = #{expand3}
+                         </if>
+                         <if test="expand4 != null  and expand4 != ''">
+                                 and my.expand_4 = #{expand4}
+                         </if>
+                         <if test="expand5 != null  and expand5 != ''">
+                                 and my.expand_5 = #{expand5}
+                         </if>
+            
+    </sql>
+
+    <select id="selectMeetingRegistrationList" parameterType="com.tencent.wxcloudrun.dto.MeetingRegistration" resultMap="MeetingRegistrationResult">
+        <include refid="selectMeetingRegistrationVo"/>
+      FROM  <include refid="tableas" />
+      where 1=1
+        <include refid="condition" />
+
+       order by create_date desc
+    </select>
+
+
+
+    <!--主键IN条件-->
+    <sql id="moreConditionPK">
+        where id in
+        <trim prefix="(" suffix=")">
+            <foreach collection="list" item="item" separator=",">
+                #{item}
+            </foreach>
+        </trim>
+    </sql>
+
+
+    <!--修改字段-->
+    <sql id="updateCondition">
+                            <if test="customerType != null  and customerType != ''">customer_type = #{customerType},</if>
+                        <if test="provinceArea != null  and provinceArea != ''">province_area = #{provinceArea},</if>
+                        <if test="attendeeName != null  and attendeeName != ''">attendee_name = #{attendeeName},</if>
+                        <if test="phoneNumber != null  and phoneNumber != ''">phone_number = #{phoneNumber},</if>
+                        <if test="isTraveling != null  and isTraveling != ''">is_traveling = #{isTraveling},</if>
+                        <if test="accompanyingPersonnel != null  and accompanyingPersonnel != ''">accompanying_personnel = #{accompanyingPersonnel},</if>
+                        <if test="hotelName != null  and hotelName != ''">hotel_name = #{hotelName},</if>
+                        <if test="roomNumber != null  and roomNumber != ''">room_number = #{roomNumber},</if>
+                        <if test="breakfastTime != null  and breakfastTime != ''">breakfast_time = #{breakfastTime},</if>
+                        <if test="lunchTime != null  and lunchTime != ''">lunch_time = #{lunchTime},</if>
+                        <if test="dinnerTime != null  and dinnerTime != ''">dinner_time = #{dinnerTime},</if>
+                        <if test="mealLocation != null  and mealLocation != ''">meal_location = #{mealLocation},</if>
+                        <if test="banquetTime != null  and banquetTime != ''">banquet_time = #{banquetTime},</if>
+                        <if test="banquetLocation != null  and banquetLocation != ''">banquet_location = #{banquetLocation},</if>
+                        <if test="banquetSeating != null  and banquetSeating != ''">banquet_seating = #{banquetSeating},</if>
+                        <if test="meetingDate != null  and meetingDate != ''">meeting_date = #{meetingDate},</if>
+                        <if test="meetingLocation != null  and meetingLocation != ''">meeting_location = #{meetingLocation},</if>
+                        <if test="tourVehicleArrangement != null  and tourVehicleArrangement != ''">tour_vehicle_arrangement = #{tourVehicleArrangement},</if>
+                        <if test="factoryVisitVehicleArrangement != null  and factoryVisitVehicleArrangement != ''">factory_visit_vehicle_arrangement = #{factoryVisitVehicleArrangement},</if>
+                        <if test="meetingSeating != null  and meetingSeating != ''">meeting_seating = #{meetingSeating},</if>
+                        <if test="hasIntentionalCustomers != null  and hasIntentionalCustomers != ''">has_intentional_customers = #{hasIntentionalCustomers},</if>
+                        <if test="createDate != null  and createDate != ''">create_date = #{createDate},</if>
+                        <if test="expand1 != null  and expand1 != ''">expand_1 = #{expand1},</if>
+                        <if test="expand2 != null  and expand2 != ''">expand_2 = #{expand2},</if>
+                        <if test="expand3 != null  and expand3 != ''">expand_3 = #{expand3},</if>
+                        <if test="expand4 != null  and expand4 != ''">expand_4 = #{expand4},</if>
+                        <if test="expand5 != null  and expand5 != ''">expand_5 = #{expand5},</if>
+          
+    </sql>
+
+
+    <!--批量修改字段-->
+    <sql id="updateConditionList">
+                            <if test="bean.customerType != null  and bean.customerType != ''">customer_type = #{bean.customerType},</if>
+                        <if test="bean.provinceArea != null  and bean.provinceArea != ''">province_area = #{bean.provinceArea},</if>
+                        <if test="bean.attendeeName != null  and bean.attendeeName != ''">attendee_name = #{bean.attendeeName},</if>
+                        <if test="bean.phoneNumber != null  and bean.phoneNumber != ''">phone_number = #{bean.phoneNumber},</if>
+                        <if test="bean.isTraveling != null  and bean.isTraveling != ''">is_traveling = #{bean.isTraveling},</if>
+                        <if test="bean.accompanyingPersonnel != null  and bean.accompanyingPersonnel != ''">accompanying_personnel = #{bean.accompanyingPersonnel},</if>
+                        <if test="bean.hotelName != null  and bean.hotelName != ''">hotel_name = #{bean.hotelName},</if>
+                        <if test="bean.roomNumber != null  and bean.roomNumber != ''">room_number = #{bean.roomNumber},</if>
+                        <if test="bean.breakfastTime != null  and bean.breakfastTime != ''">breakfast_time = #{bean.breakfastTime},</if>
+                        <if test="bean.lunchTime != null  and bean.lunchTime != ''">lunch_time = #{bean.lunchTime},</if>
+                        <if test="bean.dinnerTime != null  and bean.dinnerTime != ''">dinner_time = #{bean.dinnerTime},</if>
+                        <if test="bean.mealLocation != null  and bean.mealLocation != ''">meal_location = #{bean.mealLocation},</if>
+                        <if test="bean.banquetTime != null  and bean.banquetTime != ''">banquet_time = #{bean.banquetTime},</if>
+                        <if test="bean.banquetLocation != null  and bean.banquetLocation != ''">banquet_location = #{bean.banquetLocation},</if>
+                        <if test="bean.banquetSeating != null  and bean.banquetSeating != ''">banquet_seating = #{bean.banquetSeating},</if>
+                        <if test="bean.meetingDate != null  and bean.meetingDate != ''">meeting_date = #{bean.meetingDate},</if>
+                        <if test="bean.meetingLocation != null  and bean.meetingLocation != ''">meeting_location = #{bean.meetingLocation},</if>
+                        <if test="bean.tourVehicleArrangement != null  and bean.tourVehicleArrangement != ''">tour_vehicle_arrangement = #{bean.tourVehicleArrangement},</if>
+                        <if test="bean.factoryVisitVehicleArrangement != null  and bean.factoryVisitVehicleArrangement != ''">factory_visit_vehicle_arrangement = #{bean.factoryVisitVehicleArrangement},</if>
+                        <if test="bean.meetingSeating != null  and bean.meetingSeating != ''">meeting_seating = #{bean.meetingSeating},</if>
+                        <if test="bean.hasIntentionalCustomers != null  and bean.hasIntentionalCustomers != ''">has_intentional_customers = #{bean.hasIntentionalCustomers},</if>
+                        <if test="bean.createDate != null  and bean.createDate != ''">create_date = #{bean.createDate},</if>
+                        <if test="bean.expand1 != null  and bean.expand1 != ''">expand_1 = #{bean.expand1},</if>
+                        <if test="bean.expand2 != null  and bean.expand2 != ''">expand_2 = #{bean.expand2},</if>
+                        <if test="bean.expand3 != null  and bean.expand3 != ''">expand_3 = #{bean.expand3},</if>
+                        <if test="bean.expand4 != null  and bean.expand4 != ''">expand_4 = #{bean.expand4},</if>
+                        <if test="bean.expand5 != null  and bean.expand5 != ''">expand_5 = #{bean.expand5},</if>
+          
+    </sql>
+
+
+    <select id="selectMeetingRegistrationById" parameterType="String" resultMap="MeetingRegistrationResult">
+        <include refid="selectMeetingRegistrationVo"/>
+        FROM  <include refid="tableas" />
+        where my.id = #{id}
+    </select>
+
+    <select id="selectMeetingRegistrationByIds" parameterType="java.util.List" resultMap="MeetingRegistrationResult">
+
+        <include refid="selectMeetingRegistrationVo"/>
+        FROM  <include refid="tableas" />
+        <include refid="moreConditionPK" />
+
+    </select>
+
+
+    <insert id="insertMeetingRegistration" parameterType="com.tencent.wxcloudrun.dto.MeetingRegistration">
+        insert into meeting_registration
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null  and id != ''">id,</if>
+            <if test="customerType != null  and customerType != ''">customer_type,</if>
+            <if test="provinceArea != null  and provinceArea != ''">province_area,</if>
+            <if test="attendeeName != null  and attendeeName != ''">attendee_name,</if>
+            <if test="phoneNumber != null  and phoneNumber != ''">phone_number,</if>
+            <if test="isTraveling != null  and isTraveling != ''">is_traveling,</if>
+            <if test="accompanyingPersonnel != null  and accompanyingPersonnel != ''">accompanying_personnel,</if>
+            <if test="hotelName != null  and hotelName != ''">hotel_name,</if>
+            <if test="roomNumber != null  and roomNumber != ''">room_number,</if>
+            <if test="breakfastTime != null  and breakfastTime != ''">breakfast_time,</if>
+            <if test="lunchTime != null  and lunchTime != ''">lunch_time,</if>
+            <if test="dinnerTime != null  and dinnerTime != ''">dinner_time,</if>
+            <if test="mealLocation != null  and mealLocation != ''">meal_location,</if>
+            <if test="banquetTime != null  and banquetTime != ''">banquet_time,</if>
+            <if test="banquetLocation != null  and banquetLocation != ''">banquet_location,</if>
+            <if test="banquetSeating != null  and banquetSeating != ''">banquet_seating,</if>
+            <if test="meetingDate != null  and meetingDate != ''">meeting_date,</if>
+            <if test="meetingLocation != null  and meetingLocation != ''">meeting_location,</if>
+            <if test="tourVehicleArrangement != null  and tourVehicleArrangement != ''">tour_vehicle_arrangement,</if>
+            <if test="factoryVisitVehicleArrangement != null  and factoryVisitVehicleArrangement != ''">factory_visit_vehicle_arrangement,</if>
+            <if test="meetingSeating != null  and meetingSeating != ''">meeting_seating,</if>
+            <if test="hasIntentionalCustomers != null  and hasIntentionalCustomers != ''">has_intentional_customers,</if>
+            <if test="createDate != null  and createDate != ''">create_date,</if>
+            <if test="expand1 != null  and expand1 != ''">expand_1,</if>
+            <if test="expand2 != null  and expand2 != ''">expand_2,</if>
+            <if test="expand3 != null  and expand3 != ''">expand_3,</if>
+            <if test="expand4 != null  and expand4 != ''">expand_4,</if>
+            <if test="expand5 != null  and expand5 != ''">expand_5,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null  and id != ''">#{id},</if>
+            <if test="customerType != null  and customerType != ''">#{customerType},</if>
+            <if test="provinceArea != null  and provinceArea != ''">#{provinceArea},</if>
+            <if test="attendeeName != null  and attendeeName != ''">#{attendeeName},</if>
+            <if test="phoneNumber != null  and phoneNumber != ''">#{phoneNumber},</if>
+            <if test="isTraveling != null  and isTraveling != ''">#{isTraveling},</if>
+            <if test="accompanyingPersonnel != null  and accompanyingPersonnel != ''">#{accompanyingPersonnel},</if>
+            <if test="hotelName != null  and hotelName != ''">#{hotelName},</if>
+            <if test="roomNumber != null  and roomNumber != ''">#{roomNumber},</if>
+            <if test="breakfastTime != null  and breakfastTime != ''">#{breakfastTime},</if>
+            <if test="lunchTime != null  and lunchTime != ''">#{lunchTime},</if>
+            <if test="dinnerTime != null  and dinnerTime != ''">#{dinnerTime},</if>
+            <if test="mealLocation != null  and mealLocation != ''">#{mealLocation},</if>
+            <if test="banquetTime != null  and banquetTime != ''">#{banquetTime},</if>
+            <if test="banquetLocation != null  and banquetLocation != ''">#{banquetLocation},</if>
+            <if test="banquetSeating != null  and banquetSeating != ''">#{banquetSeating},</if>
+            <if test="meetingDate != null  and meetingDate != ''">#{meetingDate},</if>
+            <if test="meetingLocation != null  and meetingLocation != ''">#{meetingLocation},</if>
+            <if test="tourVehicleArrangement != null  and tourVehicleArrangement != ''">#{tourVehicleArrangement},</if>
+            <if test="factoryVisitVehicleArrangement != null  and factoryVisitVehicleArrangement != ''">#{factoryVisitVehicleArrangement},</if>
+            <if test="meetingSeating != null  and meetingSeating != ''">#{meetingSeating},</if>
+            <if test="hasIntentionalCustomers != null  and hasIntentionalCustomers != ''">#{hasIntentionalCustomers},</if>
+            <if test="createDate != null  and createDate != ''">#{createDate},</if>
+            <if test="expand1 != null  and expand1 != ''">#{expand1},</if>
+            <if test="expand2 != null  and expand2 != ''">#{expand2},</if>
+            <if test="expand3 != null  and expand3 != ''">#{expand3},</if>
+            <if test="expand4 != null  and expand4 != ''">#{expand4},</if>
+            <if test="expand5 != null  and expand5 != ''">#{expand5},</if>
+         </trim>
+    </insert>
+
+
+
+    <insert id="insertMeetingRegistrationList" parameterType="com.tencent.wxcloudrun.dto.MeetingRegistration">
+        <foreach collection="list" item="bean" index="index" open="" close="" separator=";">
+                insert into meeting_registration
+                <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="bean.id != null  and bean.id != ''">id,</if>
+                <if test="bean.customerType != null  and bean.customerType != ''">customer_type,</if>
+                <if test="bean.provinceArea != null  and bean.provinceArea != ''">province_area,</if>
+                <if test="bean.attendeeName != null  and bean.attendeeName != ''">attendee_name,</if>
+                <if test="bean.phoneNumber != null  and bean.phoneNumber != ''">phone_number,</if>
+                <if test="bean.isTraveling != null  and bean.isTraveling != ''">is_traveling,</if>
+                <if test="bean.accompanyingPersonnel != null  and bean.accompanyingPersonnel != ''">accompanying_personnel,</if>
+                <if test="bean.hotelName != null  and bean.hotelName != ''">hotel_name,</if>
+                <if test="bean.roomNumber != null  and bean.roomNumber != ''">room_number,</if>
+                <if test="bean.breakfastTime != null  and bean.breakfastTime != ''">breakfast_time,</if>
+                <if test="bean.lunchTime != null  and bean.lunchTime != ''">lunch_time,</if>
+                <if test="bean.dinnerTime != null  and bean.dinnerTime != ''">dinner_time,</if>
+                <if test="bean.mealLocation != null  and bean.mealLocation != ''">meal_location,</if>
+                <if test="bean.banquetTime != null  and bean.banquetTime != ''">banquet_time,</if>
+                <if test="bean.banquetLocation != null  and bean.banquetLocation != ''">banquet_location,</if>
+                <if test="bean.banquetSeating != null  and bean.banquetSeating != ''">banquet_seating,</if>
+                <if test="bean.meetingDate != null  and bean.meetingDate != ''">meeting_date,</if>
+                <if test="bean.meetingLocation != null  and bean.meetingLocation != ''">meeting_location,</if>
+                <if test="bean.tourVehicleArrangement != null  and bean.tourVehicleArrangement != ''">tour_vehicle_arrangement,</if>
+                <if test="bean.factoryVisitVehicleArrangement != null  and bean.factoryVisitVehicleArrangement != ''">factory_visit_vehicle_arrangement,</if>
+                <if test="bean.meetingSeating != null  and bean.meetingSeating != ''">meeting_seating,</if>
+                <if test="bean.hasIntentionalCustomers != null  and bean.hasIntentionalCustomers != ''">has_intentional_customers,</if>
+                <if test="bean.createDate != null  and bean.createDate != ''">create_date,</if>
+                <if test="bean.expand1 != null  and bean.expand1 != ''">expand_1,</if>
+                <if test="bean.expand2 != null  and bean.expand2 != ''">expand_2,</if>
+                <if test="bean.expand3 != null  and bean.expand3 != ''">expand_3,</if>
+                <if test="bean.expand4 != null  and bean.expand4 != ''">expand_4,</if>
+                <if test="bean.expand5 != null  and bean.expand5 != ''">expand_5,</if>
+                    </trim>
+                <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="bean.id != null  and bean.id != ''">#{bean.id},</if>
+                <if test="bean.customerType != null  and bean.customerType != ''">#{bean.customerType},</if>
+                <if test="bean.provinceArea != null  and bean.provinceArea != ''">#{bean.provinceArea},</if>
+                <if test="bean.attendeeName != null  and bean.attendeeName != ''">#{bean.attendeeName},</if>
+                <if test="bean.phoneNumber != null  and bean.phoneNumber != ''">#{bean.phoneNumber},</if>
+                <if test="bean.isTraveling != null  and bean.isTraveling != ''">#{bean.isTraveling},</if>
+                <if test="bean.accompanyingPersonnel != null  and bean.accompanyingPersonnel != ''">#{bean.accompanyingPersonnel},</if>
+                <if test="bean.hotelName != null  and bean.hotelName != ''">#{bean.hotelName},</if>
+                <if test="bean.roomNumber != null  and bean.roomNumber != ''">#{bean.roomNumber},</if>
+                <if test="bean.breakfastTime != null  and bean.breakfastTime != ''">#{bean.breakfastTime},</if>
+                <if test="bean.lunchTime != null  and bean.lunchTime != ''">#{bean.lunchTime},</if>
+                <if test="bean.dinnerTime != null  and bean.dinnerTime != ''">#{bean.dinnerTime},</if>
+                <if test="bean.mealLocation != null  and bean.mealLocation != ''">#{bean.mealLocation},</if>
+                <if test="bean.banquetTime != null  and bean.banquetTime != ''">#{bean.banquetTime},</if>
+                <if test="bean.banquetLocation != null  and bean.banquetLocation != ''">#{bean.banquetLocation},</if>
+                <if test="bean.banquetSeating != null  and bean.banquetSeating != ''">#{bean.banquetSeating},</if>
+                <if test="bean.meetingDate != null  and bean.meetingDate != ''">#{bean.meetingDate},</if>
+                <if test="bean.meetingLocation != null  and bean.meetingLocation != ''">#{bean.meetingLocation},</if>
+                <if test="bean.tourVehicleArrangement != null  and bean.tourVehicleArrangement != ''">#{bean.tourVehicleArrangement},</if>
+                <if test="bean.factoryVisitVehicleArrangement != null  and bean.factoryVisitVehicleArrangement != ''">#{bean.factoryVisitVehicleArrangement},</if>
+                <if test="bean.meetingSeating != null  and bean.meetingSeating != ''">#{bean.meetingSeating},</if>
+                <if test="bean.hasIntentionalCustomers != null  and bean.hasIntentionalCustomers != ''">#{bean.hasIntentionalCustomers},</if>
+                <if test="bean.createDate != null  and bean.createDate != ''">#{createDate},</if>
+                <if test="bean.expand1 != null  and bean.expand1 != ''">#{bean.expand1},</if>
+                <if test="bean.expand2 != null  and bean.expand2 != ''">#{bean.expand2},</if>
+                <if test="bean.expand3 != null  and bean.expand3 != ''">#{bean.expand3},</if>
+                <if test="bean.expand4 != null  and bean.expand4 != ''">#{bean.expand4},</if>
+                <if test="bean.expand5 != null  and bean.expand5 != ''">#{bean.expand5},</if>
+                    </trim>
+        </foreach>
+    </insert>
+
+
+    <update id="updateMeetingRegistration" parameterType="com.tencent.wxcloudrun.dto.MeetingRegistration">
+        update meeting_registration
+
+        <set>
+              <include refid="updateCondition" />
+        </set>
+        where id = #{id}
+    </update>
+
+
+    <update id="updateMeetingRegistrationList" parameterType="com.tencent.wxcloudrun.dto.MeetingRegistration">
+        <foreach collection="list" item="bean" index="index" open="" close="" separator=";">
+            update meeting_registration
+
+            <set>
+                <include refid="updateConditionList" />
+            </set>
+            where id = #{bean.id}
+        </foreach>
+    </update>
+
+
+    <delete id="deleteMeetingRegistrationById" parameterType="String">
+        delete from   <include refid="table" />  where id = #{id}
+    </delete>
+
+    <delete id="deleteMeetingRegistrationByIds" parameterType="java.util.List">
+        delete from
+        <include refid="table" />
+        <include refid="moreConditionPK" />
+    </delete>
+    
+</mapper>
