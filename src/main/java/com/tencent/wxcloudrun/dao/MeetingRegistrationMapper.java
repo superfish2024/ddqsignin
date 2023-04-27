@@ -85,4 +85,21 @@ public interface MeetingRegistrationMapper
      * @return 结果
      */
     public int deleteMeetingRegistrationByIds(List list);
+
+    /**
+     * 查询登记信息
+     *
+     * @param id 登记信息ID
+     * @return 登记信息
+     */
+    public MeetingRegistration selectMeetingRegistrationByPhoneNumber(String id);
+
+
+    /**
+     * 新增登记信息
+     *
+     * @param meetingRegistration 登记信息
+     * @return 结果
+     */
+    public int insertcheckin(MeetingRegistration meetingRegistration);
 }

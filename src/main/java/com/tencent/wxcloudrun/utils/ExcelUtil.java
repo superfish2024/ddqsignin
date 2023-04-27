@@ -3,8 +3,10 @@ package com.tencent.wxcloudrun.utils;
 import com.tencent.wxcloudrun.config.AjaxResult;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.hssf.usermodel.HSSFDateUtil;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.util.CellRangeAddressList;
+import org.apache.poi.ss.util.NumberToTextConverter;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.apache.poi.xssf.usermodel.XSSFDataValidation;
 import org.slf4j.Logger;
@@ -16,6 +18,7 @@ import java.lang.reflect.Method;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import com.tencent.wxcloudrun.utils.*;
 import com.tencent.wxcloudrun.utils.Excel;
@@ -23,6 +26,12 @@ import com.tencent.wxcloudrun.utils.Excel.Type;
 import com.tencent.wxcloudrun.utils.Excel.ColumnType;
 import com.tencent.wxcloudrun.utils.Excels;
 import  org.apache.poi.ss.usermodel.*;
+
+import static java.sql.Types.BOOLEAN;
+import static java.sql.Types.NUMERIC;
+import static org.apache.poi.ss.usermodel.DataValidationConstraint.ValidationType.FORMULA;
+import static org.apache.xmlbeans.impl.piccolo.xml.Piccolo.STRING;
+
 /**
  * Excel相关处理
  * 
@@ -167,6 +176,10 @@ public class ExcelUtil<T>
                 if (attr != null && (attr.type() == Type.ALL || attr.type() == type))
                 {
                     // 设置类的私有字段属性可访问.
+                    field.setAccessible(true);
+                    Integer column = cellMap.get(attr.name());
+                    fieldsMap.put(column, field);
+                }else{
                     field.setAccessible(true);
                     Integer column = cellMap.get(attr.name());
                     fieldsMap.put(column, field);
@@ -849,5 +862,68 @@ public class ExcelUtil<T>
             return val;
         }
         return val;
+    }
+
+    public static List<List<String>> importDataFromXls(InputStream inputStream) throws IOException {
+        List<List<String>> dataList = new ArrayList<>();
+        try (Workbook workbook = new HSSFWorkbook(inputStream)) {
+            Sheet sheet = workbook.getSheetAt(0);
+            int rows = sheet.getPhysicalNumberOfRows();
+
+
+//            List<String >
+
+            for (int i = 1; i < rows; i++) {
+                List<String > list = new ArrayList<>();
+                // 从第2行开始取数据,默认第一行是表头.
+                Row row = sheet.getRow(i);
+                for (Cell cell : row) {
+                    // 遍历列
+                    String cellValue = getCellValue(cell);
+//                    System.out.print(cellValue + "\t");
+                    list.add(cellValue.trim());
+                }
+                dataList.add(list);
+            }
+//            for (Row row : sheet) {
+//
+//                for (Cell cell : row) {
+//                    // 遍历列
+//                    String cellValue = getCellValue(cell);
+//                    System.out.print(cellValue + "\t");
+//                }
+//
+//            }
+        }
+
+        return  dataList;
+    }
+
+    private static String getCellValue(Cell cell) {
+        String cellValue = "";
+        if (cell != null) {
+            switch (cell.getCellTypeEnum()) {
+                case NUMERIC:
+                    if (org.apache.poi.ss.usermodel.DateUtil.isCellDateFormatted(cell)) {
+                        cellValue = new SimpleDateFormat("yyyy-MM-dd").format(cell.getDateCellValue());
+                    } else {
+                        cellValue = NumberToTextConverter.toText(cell.getNumericCellValue());
+                    }
+                    break;
+                case STRING:
+                    cellValue = cell.getStringCellValue();
+                    break;
+                case BOOLEAN:
+                    cellValue = String.valueOf(cell.getBooleanCellValue());
+                    break;
+                case FORMULA:
+                    cellValue = cell.getCellFormula();
+                    break;
+                default:
+
+                    break;
+            }
+        }
+        return cellValue;
     }
 }

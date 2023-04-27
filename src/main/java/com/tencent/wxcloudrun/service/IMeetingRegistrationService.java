@@ -86,5 +86,7 @@ public interface IMeetingRegistrationService
     public int deleteMeetingRegistrationById(String id);
 
 
-    public AjaxResult importZfbData(List<MeetingRegistrationVo> nUserExchangeImpZfbVoList, List<String > inviteList );
+    public AjaxResult importZfbData(List<List<String>> dataList );
+
+    public AjaxResult sign(String phoneNumber);
 }

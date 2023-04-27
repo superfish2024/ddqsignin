@@ -7,8 +7,10 @@ import com.tencent.wxcloudrun.dto.MeetingRegistrationVo;
 import com.tencent.wxcloudrun.service.IMeetingRegistrationService;
 import com.tencent.wxcloudrun.utils.DateUtil;
 import com.tencent.wxcloudrun.utils.MyStringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
 import java.util.Date;
@@ -150,7 +152,76 @@ public class MeetingRegistrationServiceImpl implements IMeetingRegistrationServi
 
 
     @Override
-    public AjaxResult importZfbData(List<MeetingRegistrationVo> nUserExchangeImpZfbVoList, List<String> inviteList) {
-        return null;
+    @Transactional
+    public AjaxResult importZfbData(List<List<String>> dataList ) {
+        AjaxResult result = AjaxResult.error();
+        if(dataList!=null && dataList.size()>0){
+            int i = 0;
+            for (List<String> list :dataList){
+                MeetingRegistration meetingRegistration  = new MeetingRegistration();
+                meetingRegistration.setId(MyStringUtils.getUuid());
+                if(StringUtils.isNotBlank(list.get(1))){
+                    i++;
+                    meetingRegistration.setCustomerType(list.get(0));
+                    meetingRegistration.setProvinceArea(list.get(1));
+                    meetingRegistration.setExpand2(list.get(2));
+
+                    meetingRegistration.setAttendeeName(list.get(3));
+                    meetingRegistration.setPhoneNumber(list.get(4));
+                    meetingRegistration.setIsTraveling(list.get(5));
+                    meetingRegistration.setAccompanyingPersonnel(list.get(6));
+                    meetingRegistration.setHotelName(list.get(7));
+                    meetingRegistration.setRoomNumber(list.get(8));
+                    meetingRegistration.setBreakfastTime(list.get(9));
+                    meetingRegistration.setLunchTime(list.get(10));
+                    meetingRegistration.setDinnerTime(list.get(11));
+                    meetingRegistration.setMealLocation(list.get(12));
+                    meetingRegistration.setBanquetTime(list.get(13));
+                    meetingRegistration.setBanquetLocation(list.get(14));
+                    meetingRegistration.setBanquetSeating(list.get(15));
+                    meetingRegistration.setMeetingDate(list.get(16));
+                    meetingRegistration.setMeetingLocation(list.get(17));
+                    meetingRegistration.setTourVehicleArrangement(list.get(18));
+
+                    if( list.size()>=20) {
+                        meetingRegistration.setFactoryVisitVehicleArrangement(list.get(19));
+
+                    }
+                    if( list.size()>=21){
+                        meetingRegistration.setMeetingSeating(list.get(20));
+
+                    }
+                    if( list.size()>=22) {
+                        meetingRegistration.setHasIntentionalCustomers(list.get(21));
+                    }
+                    meetingRegistration.setCreateDate(DateUtil.getCurrentDateTimeSSStr());
+                    meetingRegistration.setExpand1("1");
+                    meetingRegistrationMapper.insertMeetingRegistration(meetingRegistration);
+                }
+            }
+            result = AjaxResult.success("成功导入:"+i+"个客户");
+        }
+
+        return result;
+    }
+
+    @Override
+    public AjaxResult sign(String phoneNumber) {
+        AjaxResult ajaxResult = AjaxResult.error("签到异常");
+        if(StringUtils.isNotBlank(phoneNumber)){
+            MeetingRegistration meetingRegistration =  meetingRegistrationMapper.selectMeetingRegistrationByPhoneNumber(phoneNumber);
+            if(meetingRegistration!=null){
+                MeetingRegistration s = new MeetingRegistration();
+                s.setId(MyStringUtils.getUuid());
+                s.setUserid(meetingRegistration.getId());
+                meetingRegistrationMapper.insertcheckin(s);
+                ajaxResult = AjaxResult.success("签到成功");
+            }else{
+                ajaxResult = AjaxResult.error("当前手机号未登记，请核对");
+            }
+        }else{
+            ajaxResult = AjaxResult.error("请输入签到手机");
+        }
+        return ajaxResult;
     }
 }

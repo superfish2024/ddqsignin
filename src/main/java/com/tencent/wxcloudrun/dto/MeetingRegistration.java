@@ -125,6 +125,8 @@ public class MeetingRegistration implements Serializable
     @Excel(name = "是否有已意向客户")
     private String expand5;
 
+    String userid ;
+
     /** 创建时间 */
     private String createDate;
 

@@ -151,11 +151,12 @@ public class MeetingRegistrationController
         AjaxResult  ajaxResult = AjaxResult.error();
         try {
 
-        ExcelUtil<MeetingRegistrationVo> util = new ExcelUtil(MeetingRegistrationVo.class);
-        List<MeetingRegistrationVo> userList = util.importExcel(file.getInputStream());
-        //打款成功用户 标记处理邀请奖励
-        List<String > inviteList = new ArrayList<>();
-           ajaxResult =   meetingRegistrationService.importZfbData(userList,inviteList);
+//        ExcelUtil<MeetingRegistrationVo> util = new ExcelUtil(MeetingRegistrationVo.class);
+//        List<MeetingRegistrationVo> userList = util.importExcel(file.getInputStream());
+//        //打款成功用户 标记处理邀请奖励
+//        List<String > inviteList = new ArrayList<>();
+            List<List<String>> dataList  =   ExcelUtil.importDataFromXls(file.getInputStream());
+           ajaxResult =   meetingRegistrationService.importZfbData(dataList);
 
         }catch (Exception e){
             e.printStackTrace();

@@ -229,6 +229,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         FROM  <include refid="tableas" />
         where my.id = #{id}
     </select>
+    <select id="selectMeetingRegistrationByPhoneNumber" parameterType="String" resultMap="MeetingRegistrationResult">
+        <include refid="selectMeetingRegistrationVo"/>
+        FROM  <include refid="tableas" />
+        where my.phone_number = #{phoneNumber}
+    </select>
 
     <select id="selectMeetingRegistrationByIds" parameterType="java.util.List" resultMap="MeetingRegistrationResult">
 
@@ -403,5 +408,27 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <include refid="table" />
         <include refid="moreConditionPK" />
     </delete>
-    
+
+
+
+
+
+
+
+    <insert id="insertcheckin" parameterType="com.tencent.wxcloudrun.dto.MeetingRegistration">
+        insert into checkin
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+
+            userid,
+            checktime
+
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+
+          #{userid},
+           now()
+
+        </trim>
+    </insert>
+
 </mapper>
