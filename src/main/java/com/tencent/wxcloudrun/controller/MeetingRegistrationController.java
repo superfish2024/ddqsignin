@@ -14,6 +14,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,11 +47,17 @@ public class MeetingRegistrationController
 //    @RequiresPermissions("meetingRegistration:meetingRegistration:list")
     @PostMapping("/list")
     @ResponseBody
-    public TableDataInfo list(MeetingRegistration meetingRegistration)
+    public TableDataInfo list(HttpServletRequest request, MeetingRegistration meetingRegistration)
     {
 
-        List<MeetingRegistration> list = meetingRegistrationService.selectMeetingRegistrationList(meetingRegistration);
-        return getDataTable(list);
+
+        int pageNum = Integer.valueOf(request.getParameter("pageNum"));
+        int  pageSize = Integer.valueOf(request.getParameter("pageSize"));
+        meetingRegistration.setLimitS((pageNum-1)*pageSize);
+        meetingRegistration.setLimitE(pageSize);
+
+        TableDataInfo tableDataInfo= meetingRegistrationService.selectMeetingRegistrationList(meetingRegistration);
+        return tableDataInfo;
     }
 
     /**
@@ -127,19 +134,6 @@ public class MeetingRegistrationController
         return AjaxResult.success(meetingRegistrationService.deleteMeetingRegistrationByIds(ids));
     }
 
-    /**
-     * 响应请求分页数据
-     */
-    @SuppressWarnings({ "rawtypes", "unchecked" })
-    TableDataInfo getDataTable(List<?> list)
-    {
-        TableDataInfo rspData = new TableDataInfo();
-        rspData.setCode(0);
-        rspData.setRows(list);
-        rspData.setTotal(new PageInfo(list).getTotal());
-        return rspData;
-    }
-
 
     /**
      * 导入数据
@@ -168,4 +162,15 @@ public class MeetingRegistrationController
 
 
     }
+
+    @PostMapping( "/checkNumberUnique")
+    @ResponseBody
+    public String checkNumberUnique(MeetingRegistration meetingRegistration)
+    {
+
+        return  meetingRegistrationService.checkNumberUnique(meetingRegistration);
+    }
+
+
 }
+

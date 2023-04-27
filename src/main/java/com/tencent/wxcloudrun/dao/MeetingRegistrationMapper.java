@@ -35,6 +35,8 @@ public interface MeetingRegistrationMapper
      * @return 登记信息集合
      */
     public List<MeetingRegistration> selectMeetingRegistrationList(MeetingRegistration meetingRegistration);
+    public int selectMeetingRegistrationListCount(MeetingRegistration meetingRegistration);
+    public List<MeetingRegistration> checkNumberUnique(MeetingRegistration meetingRegistration);
 
     /**
      * 新增登记信息

@@ -3,6 +3,7 @@ package com.tencent.wxcloudrun.service;
 import com.tencent.wxcloudrun.config.AjaxResult;
 import com.tencent.wxcloudrun.dto.MeetingRegistration;
 import com.tencent.wxcloudrun.dto.MeetingRegistrationVo;
+import com.tencent.wxcloudrun.utils.TableDataInfo;
 
 import java.util.List;
 
@@ -36,7 +37,7 @@ public interface IMeetingRegistrationService
      * @param meetingRegistration 登记信息
      * @return 登记信息集合
      */
-    public List<MeetingRegistration> selectMeetingRegistrationList(MeetingRegistration meetingRegistration);
+    TableDataInfo   selectMeetingRegistrationList(MeetingRegistration meetingRegistration);
 
     /**
      * 新增登记信息
@@ -89,4 +90,5 @@ public interface IMeetingRegistrationService
     public AjaxResult importZfbData(List<List<String>> dataList );
 
     public AjaxResult sign(String phoneNumber);
+    public String checkNumberUnique(MeetingRegistration meetingRegistration);
 }

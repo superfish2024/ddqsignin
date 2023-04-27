@@ -130,6 +130,9 @@ public class MeetingRegistration implements Serializable
     /** 创建时间 */
     private String createDate;
 
+    private int limitS;
+    private int limitE;
+
     public void setId(String id) 
     {
         this.id = id;
@@ -374,4 +377,19 @@ public class MeetingRegistration implements Serializable
         return expand5;
     }
 
+    public int getLimitS() {
+        return limitS;
+    }
+
+    public void setLimitS(int limitS) {
+        this.limitS = limitS;
+    }
+
+    public int getLimitE() {
+        return limitE;
+    }
+
+    public void setLimitE(int limitE) {
+        this.limitE = limitE;
+    }
 }

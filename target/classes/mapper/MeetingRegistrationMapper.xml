@@ -136,6 +136,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             
     </sql>
 
+
+
+    <select id="selectMeetingRegistrationListCount" parameterType="com.tencent.wxcloudrun.dto.MeetingRegistration" resultType="java.lang.Integer">
+         select count(-1)
+        FROM  <include refid="tableas" />
+        where 1=1
+        <include refid="condition" />
+
+        order by create_date desc
+
+    </select>
     <select id="selectMeetingRegistrationList" parameterType="com.tencent.wxcloudrun.dto.MeetingRegistration" resultMap="MeetingRegistrationResult">
         <include refid="selectMeetingRegistrationVo"/>
       FROM  <include refid="tableas" />
@@ -143,9 +154,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <include refid="condition" />
 
        order by create_date desc
+
+        LIMIT #{limitS},#{limitE}
     </select>
 
-
+    <select id="checkNumberUnique" parameterType="com.tencent.wxcloudrun.dto.MeetingRegistration" resultMap="MeetingRegistrationResult">
+        <include refid="selectMeetingRegistrationVo"/>
+        FROM  <include refid="tableas" />
+        where 1=1
+        <if test="phoneNumber != null  and phoneNumber != ''">
+            and my.phone_number  = #{phoneNumber}
+        </if>
+    </select>
 
     <!--主键IN条件-->
     <sql id="moreConditionPK">
