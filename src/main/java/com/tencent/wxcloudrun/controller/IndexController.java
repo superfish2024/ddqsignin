@@ -1,8 +1,10 @@
 package com.tencent.wxcloudrun.controller;
 
+import com.tencent.wxcloudrun.config.AjaxResult;
 import com.tencent.wxcloudrun.config.ApiResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * index控制器 111
@@ -26,6 +28,13 @@ public class IndexController {
   public   String  test() {
     return prefix + "info";
 
+  }
+  @GetMapping(value = "/api/sign")
+  @ResponseBody
+  public AjaxResult sign() {
+
+
+    return  AjaxResult.success();
   }
 
 }
