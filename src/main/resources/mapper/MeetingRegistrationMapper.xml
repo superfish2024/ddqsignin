@@ -115,9 +115,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                          <if test="hasIntentionalCustomers != null  and hasIntentionalCustomers != ''">
                                  and my.has_intentional_customers = #{hasIntentionalCustomers}
                          </if>
-                          <if test="createDate != null  and createDate != ''">
-                                 and my.create_date = #{createDate}
-                         </if>
+<!--                          <if test="createDate != null  and createDate != ''">-->
+<!--                                 and my.create_date = #{createDate}-->
+<!--                         </if>-->
                          <if test="expand1 != null  and expand1 != ''">
                                  and my.expand_1 = #{expand1}
                          </if>
@@ -454,124 +454,113 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 
 
-    <select id="statisticsMeetingRegistrationSign"  parameterType="java.util.Map" resultType="java.util.Map" >
+    <select id="statisticsMeetingRegistrationSign"  parameterType="com.tencent.wxcloudrun.dto.MeetingRegistration" resultType="java.util.Map" >
         <![CDATA[
-      SELECT
+        SELECT
             sd.province_area AS 省区,
-            COUNT(
-                    DISTINCT CASE
-                                 WHEN sd.customer_type IN (1, 2) THEN sd.id
-                                 ELSE NULL
-                END
-                ) AS 应签到人数,
-            COUNT(
-                    DISTINCT CASE
-                                 WHEN sd.customer_type IN (1, 2)
-                                     AND ci.userid IS NOT NULL THEN sd.id
-                                 ELSE NULL
-                END
-                ) AS 已签到客户数量,
-            SUM(sd.accompanying_personnel) AS 随行人员数量,
-            COUNT(
-                    DISTINCT CASE
-                                 WHEN sd.customer_type = 2 THEN sd.id
-                                 ELSE NULL
-                END
-                ) AS 意向客户数量,
-            COUNT(
-                    DISTINCT CASE
-                                 WHEN sd.customer_type = 1
-                                     AND ci.userid IS NULL THEN sd.id
-                                 ELSE NULL
-                END
-                ) AS 未签到经销商数量,
-            COUNT(
-                    DISTINCT CASE
-                                 WHEN sd.customer_type = 2
-                                     AND ci.userid IS NULL THEN sd.id
-                                 ELSE NULL
-                END
-                ) AS 未签到意向客户数量,
-
-            COUNT(
-                    DISTINCT CASE
-                                 WHEN sd.customer_type = 3
-                                     AND ci.userid IS NULL THEN sd.id
-                                 ELSE NULL
-                END
-                ) AS 未签到营销人员数量,
-            '2023-04-27' AS 统计日期
+            count(- 1 ) AS 应签到人数,
+            (
+                SELECT
+                    count(
+                            DISTINCT ( c.userid ))
+                FROM
+                    checkin c
+                        LEFT JOIN meeting_registration m ON c.userid = m.id
+                WHERE
+                    m.province_area = sd.province_area
+                  AND DATE_FORMAT( c.checktime, "%Y-%m-%d" )= #{createDate}
+            ) AS 已签到客户数量,
+            COUNT( DISTINCT CASE WHEN sd.accompanying_personnel IS NOT NULL AND LENGTH( sd.accompanying_personnel )> 0 THEN sd.id ELSE NULL END ) AS 随行人员数量,
+            COUNT( DISTINCT CASE WHEN sd.customer_type = 2 THEN sd.id ELSE NULL END ) AS 意向客户数量,
+            (
+                SELECT
+                    count(
+                            DISTINCT ( m.id ))
+                FROM
+                    meeting_registration m
+                WHERE
+                    m.province_area = sd.province_area
+                  AND m.customer_type = 1
+                  AND id NOT IN ( SELECT id FROM checkin c WHERE DATE_FORMAT( c.checktime, "%Y-%m-%d" )=#{createDate} )
+            ) AS 未签到经销商数量,
+            (
+                SELECT
+                    count(
+                            DISTINCT ( m.id ))
+                FROM
+                    meeting_registration m
+                WHERE
+                    m.province_area = sd.province_area
+                  AND m.customer_type = 2
+                  AND id NOT IN ( SELECT id FROM checkin c WHERE DATE_FORMAT( c.checktime, "%Y-%m-%d" )= #{createDate} )
+            ) AS 未签到意向客户数量,
+            (
+                SELECT
+                    count(
+                            DISTINCT ( m.id ))
+                FROM
+                    meeting_registration m
+                WHERE
+                    m.province_area = sd.province_area
+                  AND m.customer_type = 3
+                  AND id NOT IN ( SELECT id FROM checkin c WHERE DATE_FORMAT( c.checktime, "%Y-%m-%d" )= #{createDate} )
+            ) AS 未签到营销人员数量,
+            #{createDate} AS 统计日期
         FROM
-            `springboot_demo`.`meeting_registration` sd
-            LEFT JOIN (
-            SELECT
-            userid,
-            MIN(checktime) AS checktime
-            FROM
-            `springboot_demo`.`checkin`
-            GROUP BY
-            userid,
-            DATE(checktime)
-            ) ci ON sd.id = ci.userid
+            `meeting_registration` sd
         GROUP BY
-            sd.province_area,
-            DATE(ci.checktime)
-        ORDER BY
-            统计日期 ASC,
-            省区 ASC;
+            sd.province_area
         ]]>
     </select>
 
 
-    <select id="infoMeetingRegistrationSign"  parameterType="java.util.Map" resultType="java.util.Map" >
+    <select id="infoMeetingRegistrationSign"  parameterType="com.tencent.wxcloudrun.dto.MeetingRegistration" resultType="java.util.Map" >
          <![CDATA[
         SELECT
-            IFNULL(sd.province_area,'') AS 省区,
-            IFNULL(sd.expand_2,'') AS 区域,
-            IFNULL( sd.customer_type,'') AS 客户分类,
-            IFNULL(sd.attendee_name,'') AS 应签到客户名称,
-            IFNULL( DATE(ci.checktime),'') AS 日期,
+            IFNULL( my.province_area, '' ) AS 省区,
+            IFNULL( my.expand_2, '' ) AS 区域,
+            IFNULL( my.customer_type, '' ) AS 客户分类,
+            IFNULL( my.attendee_name, '' ) AS 应签到客户名称,
+            IFNULL( DATE( ci.checktime ), '' ) AS 日期,
             CASE
-                WHEN ci.userid IS NOT NULL THEN '已签到'
-                ELSE '未签到'
+
+                WHEN ci.userid IS NOT NULL THEN
+                    '已签到' ELSE '未签到'
                 END AS 已签到客户状态,
             IFNULL((
                 SELECT
-                    MIN(checktime)
+                    max( checktime )
                 FROM
                     `springboot_demo`.`checkin`
                 WHERE
-                DATE(checktime) = DATE(ci.checktime)
-            AND HOUR(checktime) < 12
-            AND userid = sd.id
-    ),'') AS 上午签到时间,
+                DATE( checktime ) = DATE( ci.checktime )
+			AND HOUR ( checktime ) < 12
+			AND userid = my.id
+			),
+		''
+	) AS 上午签到时间,
             IFNULL((
                 SELECT
-                    MIN(checktime)
+                    max( checktime )
                 FROM
                     `springboot_demo`.`checkin`
                 WHERE
-                DATE(checktime) = DATE(ci.checktime)
-            AND HOUR(checktime) >= 12
-            AND userid = sd.id
-    ),'') AS 下午签到时间
+                DATE( checktime ) = DATE( ci.checktime )
+			AND HOUR ( checktime ) >= 12
+			AND userid = my.id
+			),
+		''
+	) AS 下午签到时间
         FROM
-            `springboot_demo`.`meeting_registration` sd
-                LEFT JOIN (
-                SELECT
-                    userid,
-                    MIN(checktime) AS checktime
-                FROM
-                    `springboot_demo`.`checkin`
-                GROUP BY
-                    userid,
-                    DATE(checktime)
-            ) ci ON sd.id = ci.userid
+            `springboot_demo`.`meeting_registration` my
+                LEFT JOIN ( SELECT userid, MIN( checktime ) AS checktime FROM `springboot_demo`.`checkin` WHERE DATE_FORMAT( checktime, "%Y-%m-%d" ) = #{createDate} GROUP BY userid ) ci ON my.id = ci.userid
+      where 1=1
+            ]]>
+        <include refid="condition" />
+
         ORDER BY
-            日期 desc
+        日期 DESC
 
-
-        ]]>
     </select>
 
 

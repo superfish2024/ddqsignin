@@ -306,8 +306,8 @@ public class MeetingRegistrationServiceImpl implements IMeetingRegistrationServi
      * @return
      */
     @Override
-    public TableDataInfo  statisticsMeetingRegistrationSign(Map<String, Object> param) {
-        List<Map<String, Object>> list =  meetingRegistrationMapper.statisticsMeetingRegistrationSign(param);
+    public TableDataInfo  statisticsMeetingRegistrationSign(MeetingRegistration meetingRegistration) {
+        List<Map<String, Object>> list =  meetingRegistrationMapper.statisticsMeetingRegistrationSign(meetingRegistration);
         return getDataTable(list,list.size());
 
     }
@@ -319,8 +319,8 @@ public class MeetingRegistrationServiceImpl implements IMeetingRegistrationServi
      * @return
      */
     @Override
-    public TableDataInfo   infoMeetingRegistrationSign(Map<String, Object> param) {
-        List<Map<String, Object>> list =  meetingRegistrationMapper.infoMeetingRegistrationSign(param);
+    public TableDataInfo   infoMeetingRegistrationSign(MeetingRegistration meetingRegistration) {
+        List<Map<String, Object>> list =  meetingRegistrationMapper.infoMeetingRegistrationSign(meetingRegistration);
         return getDataTable(list,list.size());
 
     }

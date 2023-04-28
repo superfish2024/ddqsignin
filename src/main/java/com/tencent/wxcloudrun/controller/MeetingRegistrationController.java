@@ -5,17 +5,20 @@ import com.tencent.wxcloudrun.config.AjaxResult;
 import com.tencent.wxcloudrun.dto.MeetingRegistration;
 import com.tencent.wxcloudrun.dto.MeetingRegistrationVo;
 import com.tencent.wxcloudrun.service.IMeetingRegistrationService;
+import com.tencent.wxcloudrun.utils.DateUtil;
 import com.tencent.wxcloudrun.utils.ExcelUtil;
 import com.tencent.wxcloudrun.utils.PageInfo;
 import com.tencent.wxcloudrun.utils.TableDataInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.util.unit.DataUnit;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -178,33 +181,38 @@ public class MeetingRegistrationController
     public String statisticsMeetingRegistrationSignIndex(MeetingRegistration meetingRegistration, ModelMap mmap)
     {
 
+
+        meetingRegistration.setCreateDate(DateUtil.dateToStrings(new Date()));
+        mmap.put("meetingRegistration",meetingRegistration);
         return prefix + "/statisticsMeetingRegistrationSign";
     }
     @PostMapping("/statisticsMeetingRegistrationSign")
     @ResponseBody
-    public TableDataInfo statisticsMeetingRegistrationSign(HttpServletRequest request)
+    public TableDataInfo statisticsMeetingRegistrationSign(HttpServletRequest request,MeetingRegistration meetingRegistration)
     {
 
 
 
-        TableDataInfo tableDataInfo= meetingRegistrationService.statisticsMeetingRegistrationSign(null);
+        TableDataInfo tableDataInfo= meetingRegistrationService.statisticsMeetingRegistrationSign(meetingRegistration);
         return tableDataInfo;
     }
 
     @GetMapping("/infoMeetingRegistrationSignIndex")
     public String infoMeetingRegistrationSignIndex(MeetingRegistration meetingRegistration, ModelMap mmap)
     {
+        meetingRegistration.setCreateDate(DateUtil.dateToStrings(new Date()));
+        mmap.put("meetingRegistration",meetingRegistration);
 
         return prefix + "/infoMeetingRegistrationSign";
     }
     @PostMapping("/infoMeetingRegistrationSign")
     @ResponseBody
-    public TableDataInfo infoMeetingRegistrationSign(HttpServletRequest request)
+    public TableDataInfo infoMeetingRegistrationSign(HttpServletRequest request,MeetingRegistration meetingRegistration)
     {
 
 
 
-        TableDataInfo tableDataInfo= meetingRegistrationService.infoMeetingRegistrationSign(null);
+        TableDataInfo tableDataInfo= meetingRegistrationService.infoMeetingRegistrationSign(meetingRegistration);
         return tableDataInfo;
     }
 

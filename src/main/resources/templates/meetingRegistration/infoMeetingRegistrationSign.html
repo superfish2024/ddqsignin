@@ -12,23 +12,25 @@
                     <ul>
                         <li>
                             <p>省区：</p>
-                            <input type="text" name="customerType"/>
-                        </li>
-                        <li>
-                            <p>区域：</p>
                             <input type="text" name="provinceArea"/>
                         </li>
                         <li>
+                            <p>区域：</p>
+                            <input type="text" name="expand2"/>
+                        </li>
+                        <li>
                             <p>客户分类：</p>
-                            <input type="text" name="attendeeName"/>
+                            <input type="text" name="customerType"/>
                         </li>
                         <li>
                             <p>应签到客户名称：</p>
-                            <input type="text" name="phoneNumber"/>
+                            <input type="text" name="attendeeName"/>
                         </li>
                         <li>
-                            <p>日期：</p>
-                            <input type="text" name="isTraveling"/>
+
+                            <p  style="width:120px"> 统计日期：<span style="color: red; ">&nbsp;</span></p>
+                            <input type="text" class="time-input" id="createDate" placeholder="开始时间" name="createDate" th:value="${meetingRegistration.createDate}"/>
+
                         </li>
                         <!--                            <li>-->
                         <!--                                <p>随行人员：</p>-->

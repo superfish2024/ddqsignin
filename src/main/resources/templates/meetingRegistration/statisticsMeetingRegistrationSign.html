@@ -70,9 +70,11 @@
                         <!--                                <p>晚宴坐席：</p>-->
                         <!--                                <input type="text" name="banquetSeating"/>-->
                         <!--                            </li>-->
-                        <li>
-                            <p>统计日期：</p>
-                            <input type="text" name="meetingDate"/>
+
+                        <li class="select-time">
+                            <p  style="width:120px"> 统计日期：<span style="color: red; ">&nbsp;</span></p>
+                            <input type="text" class="time-input" id="createDate" placeholder="开始时间" name="createDate" th:value="${meetingRegistration.createDate}"/>
+
                         </li>
                         <!--                            <li>-->
                         <!--                                <p>会议地点：</p>-->

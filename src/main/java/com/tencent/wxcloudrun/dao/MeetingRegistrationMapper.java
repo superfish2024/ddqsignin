@@ -109,15 +109,15 @@ public interface MeetingRegistrationMapper
 
     /**
      * 统计签到报表
-     * @param param
+     * @param meetingRegistration
      * @return
      */
-    public List<Map<String,Object>> statisticsMeetingRegistrationSign(Map<String,Object> param);
+    public List<Map<String,Object>> statisticsMeetingRegistrationSign(MeetingRegistration meetingRegistration);
 
     /**
      * 签到明细统计
-     * @param param
+     * @param meetingRegistration
      * @return
      */
-    public List<Map<String,Object>> infoMeetingRegistrationSign(Map<String,Object> param);
+    public List<Map<String,Object>> infoMeetingRegistrationSign(MeetingRegistration meetingRegistration);
 }

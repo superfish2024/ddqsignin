@@ -101,12 +101,12 @@ public interface IMeetingRegistrationService
      * @param param
      * @return
      */
-    public TableDataInfo  statisticsMeetingRegistrationSign(Map<String,Object> param);
+    public TableDataInfo  statisticsMeetingRegistrationSign(MeetingRegistration meetingRegistration);
 
     /**
      * 签到明细统计
      * @param param
      * @return
      */
-    public TableDataInfo infoMeetingRegistrationSign(Map<String,Object> param);
+    public TableDataInfo infoMeetingRegistrationSign(MeetingRegistration meetingRegistration);
 }
