@@ -277,7 +277,7 @@ public class MeetingRegistrationServiceImpl implements IMeetingRegistrationServi
                 data.put( "早餐用餐时间", meetingRegistration.getBreakfastTime());
                 data.put( "中餐用餐时间",meetingRegistration.getLunchTime());
                 data.put( "晚餐用餐时间", meetingRegistration.getDinnerTime());
-                data.put( "用餐地点", meetingRegistration.getBanquetLocation());
+                data.put( "用餐地点", meetingRegistration.getMealLocation());
                 data.put( "晚宴用餐时间", meetingRegistration.getBanquetTime());
                 data.put( "晚宴用餐地点", meetingRegistration.getBanquetLocation());
                 data.put( "晚宴坐席", meetingRegistration.getBanquetSeating());
