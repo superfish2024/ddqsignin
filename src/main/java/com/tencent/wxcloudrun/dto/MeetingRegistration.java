@@ -37,8 +37,8 @@ public class MeetingRegistration implements Serializable
     @Excel(name = "联系电话")
     private String phoneNumber;
 
-    /** 是否参加旅游 */
-    @Excel(name = "是否参加旅游")
+    /** 是否参加工业旅游 */
+    @Excel(name = "是否参加工业旅游")
     private String isTraveling;
 
     /** 随行人员 */
@@ -117,13 +117,29 @@ public class MeetingRegistration implements Serializable
     @Excel(name = "性别")
     private String expand3;
 
-    /** 是否有已意向客户 */
-    @Excel(name = "是否有已意向客户")
+    /** 是否参加城市景点旅游 */
+    @Excel(name = "是否参加城市景点旅游")
     private String expand4;
 
-    /** 是否有已意向客户 */
-    @Excel(name = "是否有已意向客户")
+    /** 培训座席 */
+    @Excel(name = "培训座席")
     private String expand5;
+    /** 区域负责经理 */
+    @Excel(name = "区域负责经理")
+    private String expand6;
+    /**  */
+    @Excel(name = "")
+    private String expand7;
+    /**  */
+    @Excel(name = "")
+    private String expand8;
+    /**  */
+    @Excel(name = "")
+    private String expand9;
+    /**  */
+    @Excel(name = "")
+    private String expand10;
+
 
     String userid ;
 
@@ -372,7 +388,47 @@ public class MeetingRegistration implements Serializable
         this.expand5 = expand5;
     }
 
-    public String getExpand5() 
+    public String getExpand6() {
+        return expand6;
+    }
+
+    public void setExpand6(String expand6) {
+        this.expand6 = expand6;
+    }
+
+    public String getExpand7() {
+        return expand7;
+    }
+
+    public void setExpand7(String expand7) {
+        this.expand7 = expand7;
+    }
+
+    public String getExpand8() {
+        return expand8;
+    }
+
+    public void setExpand8(String expand8) {
+        this.expand8 = expand8;
+    }
+
+    public String getExpand9() {
+        return expand9;
+    }
+
+    public void setExpand9(String expand9) {
+        this.expand9 = expand9;
+    }
+
+    public String getExpand10() {
+        return expand10;
+    }
+
+    public void setExpand10(String expand10) {
+        this.expand10 = expand10;
+    }
+
+    public String getExpand5()
     {
         return expand5;
     }

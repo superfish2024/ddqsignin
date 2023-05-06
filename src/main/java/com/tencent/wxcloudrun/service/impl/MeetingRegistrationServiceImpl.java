@@ -209,29 +209,32 @@ public class MeetingRegistrationServiceImpl implements IMeetingRegistrationServi
                         meetingRegistration.setAttendeeName(list.get(3));
                         meetingRegistration.setExpand3(list.get(4));//性别
                         meetingRegistration.setPhoneNumber(list.get(5));
-                        meetingRegistration.setIsTraveling(list.get(6));
-                        meetingRegistration.setAccompanyingPersonnel(list.get(7));
-                        meetingRegistration.setHotelName(list.get(8));
-                        meetingRegistration.setRoomNumber(list.get(9));
-                        meetingRegistration.setBreakfastTime(list.get(10));
-                        meetingRegistration.setLunchTime(list.get(11));
-                        meetingRegistration.setDinnerTime(list.get(12));
-                        meetingRegistration.setMealLocation(list.get(13));
-                        meetingRegistration.setBanquetTime(list.get(14));
-                        meetingRegistration.setBanquetLocation(list.get(15));
-                        meetingRegistration.setBanquetSeating(list.get(16));
-                        meetingRegistration.setMeetingDate(list.get(17));
-                        meetingRegistration.setMeetingLocation(list.get(18));
-                        meetingRegistration.setTourVehicleArrangement(list.get(19));
+                        meetingRegistration.setExpand6(list.get(6));//负责区域经理
+                        meetingRegistration.setIsTraveling(list.get(7));
+                        meetingRegistration.setExpand4(list.get(8));
+                        meetingRegistration.setAccompanyingPersonnel(list.get(9));
+                        meetingRegistration.setHotelName(list.get(10));
+                        meetingRegistration.setRoomNumber(list.get(11));
+                        meetingRegistration.setBreakfastTime(list.get(12));
+                        meetingRegistration.setLunchTime(list.get(13));
+                        meetingRegistration.setDinnerTime(list.get(14));
+                        meetingRegistration.setMealLocation(list.get(15));
+                        meetingRegistration.setBanquetTime(list.get(16));
+                        meetingRegistration.setBanquetLocation(list.get(17));
+                        meetingRegistration.setBanquetSeating(list.get(18));
+//                        meetingRegistration.setMeetingDate(list.get(18));
+//                        meetingRegistration.setMeetingLocation(list.get(19));
+                        meetingRegistration.setExpand5(list.get(19));
+                        meetingRegistration.setTourVehicleArrangement(list.get(20));
 
-                        if (list.size() >= 21) {
-                            meetingRegistration.setFactoryVisitVehicleArrangement(list.get(20));
-
-                        }
                         if (list.size() >= 22) {
-                            meetingRegistration.setMeetingSeating(list.get(21));
+                            meetingRegistration.setFactoryVisitVehicleArrangement(list.get(21));
 
                         }
+//                        if (list.size() >= 22) {
+//                            meetingRegistration.setMeetingSeating(list.get(21));
+//
+//                        }
                         if (list.size() >= 23) {
                             meetingRegistration.setHasIntentionalCustomers(list.get(22));
                         }
@@ -264,13 +267,14 @@ public class MeetingRegistrationServiceImpl implements IMeetingRegistrationServi
                 s.setId(MyStringUtils.getUuid());
                 s.setUserid(meetingRegistration.getId());
                 meetingRegistrationMapper.insertcheckin(s);
-                Map<String,Object> data = new HashMap<>();
+                LinkedHashMap<String,Object> data = new LinkedHashMap<>();
                 data.put( "客户类别", meetingRegistration.getCustomerType());
 //                data.put( "会议议程", "道道全第四届华东经销商会议议程");
                 data.put( "所属省区", meetingRegistration.getProvinceArea());
                 data.put( "参会人名称", meetingRegistration.getAttendeeName());
                 data.put( "联系电话", meetingRegistration.getPhoneNumber());
-                data.put( "是否参加旅游",meetingRegistration.getIsTraveling());
+                data.put( "是否参加工业旅游",meetingRegistration.getIsTraveling());
+                data.put( "是否参加城市景点旅游", meetingRegistration.getExpand4());
                 data.put( "随行人员", meetingRegistration.getAccompanyingPersonnel());
                 data.put( "住宿酒店名称", meetingRegistration.getHotelName());
                 data.put(  "房间号", meetingRegistration.getRoomNumber());
@@ -286,6 +290,7 @@ public class MeetingRegistrationServiceImpl implements IMeetingRegistrationServi
                 data.put( "旅游车辆安排",meetingRegistration.getTourVehicleArrangement());
                 data.put( "参观工厂车辆安排", meetingRegistration.getFactoryVisitVehicleArrangement());
                 data.put( "会议坐席", meetingRegistration.getMeetingSeating());
+                data.put( "培训座席", meetingRegistration.getExpand5());
                 data.put(  "time", System.currentTimeMillis());
                 ajaxResult = AjaxResult.success("签到成功",data);
             }else{

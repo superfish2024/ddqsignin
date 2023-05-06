@@ -33,6 +33,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="expand3"    column="expand_3"    />
         <result property="expand4"    column="expand_4"    />
         <result property="expand5"    column="expand_5"    />
+        <result property="expand6"    column="expand_6"    />
+        <result property="expand7"    column="expand_7"    />
+        <result property="expand8"    column="expand_8"    />
+        <result property="expand9"    column="expand_9"    />
+        <result property="expand10"    column="expand_10"    />
     </resultMap>
 
     <!--表名-->
@@ -47,7 +52,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 
     <sql id="selectMeetingRegistrationVo">
-        select my.id, my.customer_type, my.province_area, my.attendee_name, my.phone_number, my.is_traveling, my.accompanying_personnel, my.hotel_name, my.room_number, my.breakfast_time, my.lunch_time, my.dinner_time, my.meal_location, my.banquet_time, my.banquet_location, my.banquet_seating, my.meeting_date, my.meeting_location, my.tour_vehicle_arrangement, my.factory_visit_vehicle_arrangement, my.meeting_seating, my.has_intentional_customers, my.create_date, my.expand_1, my.expand_2, my.expand_3, my.expand_4, my.expand_5    </sql>
+        select my.id, my.customer_type, my.province_area, my.attendee_name, my.phone_number, my.is_traveling, my.accompanying_personnel, my.hotel_name, my.room_number, my.breakfast_time, my.lunch_time, my.dinner_time, my.meal_location, my.banquet_time, my.banquet_location, my.banquet_seating, my.meeting_date, my.meeting_location, my.tour_vehicle_arrangement, my.factory_visit_vehicle_arrangement, my.meeting_seating, my.has_intentional_customers, my.create_date
+             , my.expand_1, my.expand_2, my.expand_3, my.expand_4, my.expand_5  , my.expand_6, my.expand_7, my.expand_8, my.expand_9, my.expand_10   </sql>
 
 
     <!--查询条件-->
@@ -207,7 +213,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                         <if test="expand3 != null  and expand3 != ''">expand_3 = #{expand3},</if>
                         <if test="expand4 != null  and expand4 != ''">expand_4 = #{expand4},</if>
                         <if test="expand5 != null  and expand5 != ''">expand_5 = #{expand5},</if>
-          
+                        <if test="expand6 != null  and expand6 != ''">expand_6 = #{expand6},</if>
+                        <if test="expand7 != null  and expand7 != ''">expand_7 = #{expand7},</if>
+                        <if test="expand8 != null  and expand8 != ''">expand_8 = #{expand8},</if>
+                        <if test="expand9 != null  and expand9 != ''">expand_9 = #{expand9},</if>
+                        <if test="expand10 != null  and expand10 != ''">expand_10 = #{expand10},</if>
+
     </sql>
 
 
@@ -240,7 +251,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                         <if test="bean.expand3 != null  and bean.expand3 != ''">expand_3 = #{bean.expand3},</if>
                         <if test="bean.expand4 != null  and bean.expand4 != ''">expand_4 = #{bean.expand4},</if>
                         <if test="bean.expand5 != null  and bean.expand5 != ''">expand_5 = #{bean.expand5},</if>
-          
+                        <if test="bean.expand6 != null  and bean.expand6 != ''">expand_6 = #{bean.expand6},</if>
+                        <if test="bean.expand7 != null  and bean.expand7 != ''">expand_7 = #{bean.expand7},</if>
+                        <if test="bean.expand8 != null  and bean.expand8 != ''">expand_8 = #{bean.expand8},</if>
+                        <if test="bean.expand9 != null  and bean.expand9 != ''">expand_9 = #{bean.expand9},</if>
+                        <if test="bean.expand10 != null  and bean.expand10 != ''">expand_10 = #{bean.expand10},</if>
+
     </sql>
 
 
@@ -295,6 +311,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="expand3 != null  and expand3 != ''">expand_3,</if>
             <if test="expand4 != null  and expand4 != ''">expand_4,</if>
             <if test="expand5 != null  and expand5 != ''">expand_5,</if>
+            <if test="expand6 != null  and expand6 != ''">expand_6,</if>
+            <if test="expand7 != null  and expand7 != ''">expand_7,</if>
+            <if test="expand8 != null  and expand8 != ''">expand_8,</if>
+            <if test="expand9 != null  and expand9 != ''">expand_9,</if>
+            <if test="expand10 != null  and expand10 != ''">expand_10,</if>
+
          </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="id != null  and id != ''">#{id},</if>
@@ -325,6 +347,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="expand3 != null  and expand3 != ''">#{expand3},</if>
             <if test="expand4 != null  and expand4 != ''">#{expand4},</if>
             <if test="expand5 != null  and expand5 != ''">#{expand5},</if>
+            <if test="expand6 != null  and expand6 != ''">#{expand6},</if>
+            <if test="expand7 != null  and expand7 != ''">#{expand7},</if>
+            <if test="expand8 != null  and expand8 != ''">#{expand8},</if>
+            <if test="expand9 != null  and expand9 != ''">#{expand9},</if>
+            <if test="expand10 != null  and expand10 != ''">#{expand10},</if>
+
          </trim>
     </insert>
 
@@ -362,7 +390,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                 <if test="bean.expand3 != null  and bean.expand3 != ''">expand_3,</if>
                 <if test="bean.expand4 != null  and bean.expand4 != ''">expand_4,</if>
                 <if test="bean.expand5 != null  and bean.expand5 != ''">expand_5,</if>
-                    </trim>
+                <if test="bean.expand6 != null  and bean.expand6 != ''">expand_6,</if>
+                <if test="bean.expand7 != null  and bean.expand7 != ''">expand_7,</if>
+                <if test="bean.expand8 != null  and bean.expand8 != ''">expand_8,</if>
+                <if test="bean.expand9 != null  and bean.expand9 != ''">expand_9,</if>
+                <if test="bean.expand10 != null  and bean.expand10 != ''">expand_10,</if>
+
+                </trim>
                 <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="bean.id != null  and bean.id != ''">#{bean.id},</if>
                 <if test="bean.customerType != null  and bean.customerType != ''">#{bean.customerType},</if>
@@ -392,6 +426,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                 <if test="bean.expand3 != null  and bean.expand3 != ''">#{bean.expand3},</if>
                 <if test="bean.expand4 != null  and bean.expand4 != ''">#{bean.expand4},</if>
                 <if test="bean.expand5 != null  and bean.expand5 != ''">#{bean.expand5},</if>
+                <if test="bean.expand6 != null  and bean.expand6 != ''">#{bean.expand6},</if>
+                <if test="bean.expand7 != null  and bean.expand7 != ''">#{bean.expand7},</if>
+                <if test="bean.expand8 != null  and bean.expand8 != ''">#{bean.expand8},</if>
+                <if test="bean.expand9 != null  and bean.expand9 != ''">#{bean.expand9},</if>
+                <if test="bean.expand10 != null  and bean.expand10 != ''">#{bean.expand10},</if>
                     </trim>
         </foreach>
     </insert>
