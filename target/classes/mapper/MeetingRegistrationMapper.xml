@@ -481,7 +481,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                 WHERE
                     m.province_area = sd.province_area
                   AND m.customer_type = 1
-                  AND id NOT IN ( SELECT id FROM checkin c WHERE DATE_FORMAT( c.checktime, "%Y-%m-%d" )=#{createDate} )
+                  AND id NOT IN ( SELECT userid FROM checkin c WHERE DATE_FORMAT( c.checktime, "%Y-%m-%d" )=#{createDate} )
             ) AS 未签到经销商数量,
             (
                 SELECT
@@ -492,7 +492,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                 WHERE
                     m.province_area = sd.province_area
                   AND m.customer_type = 2
-                  AND id NOT IN ( SELECT id FROM checkin c WHERE DATE_FORMAT( c.checktime, "%Y-%m-%d" )= #{createDate} )
+                  AND id NOT IN ( SELECT userid FROM checkin c WHERE DATE_FORMAT( c.checktime, "%Y-%m-%d" )= #{createDate} )
             ) AS 未签到意向客户数量,
             (
                 SELECT
@@ -503,7 +503,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                 WHERE
                     m.province_area = sd.province_area
                   AND m.customer_type = 3
-                  AND id NOT IN ( SELECT id FROM checkin c WHERE DATE_FORMAT( c.checktime, "%Y-%m-%d" )= #{createDate} )
+                  AND id NOT IN ( SELECT userid FROM checkin c WHERE DATE_FORMAT( c.checktime, "%Y-%m-%d" )= #{createDate} )
             ) AS 未签到营销人员数量,
             #{createDate} AS 统计日期
         FROM
