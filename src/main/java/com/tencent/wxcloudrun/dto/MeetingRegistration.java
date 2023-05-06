@@ -105,16 +105,16 @@ public class MeetingRegistration implements Serializable
     @Excel(name = "是否有已意向客户")
     private String hasIntentionalCustomers;
 
-    /** 是否有已意向客户 */
-    @Excel(name = "是否有已意向客户")
+    /** 状态 1 有效2 无效 */
+    @Excel(name = "状态 1 有效2 无效")
     private String expand1;
 
-    /** 是否有已意向客户 */
-    @Excel(name = "是否有已意向客户")
+    /** 区域 */
+    @Excel(name = "区域")
     private String expand2;
 
-    /** 是否有已意向客户 */
-    @Excel(name = "是否有已意向客户")
+    /** 性别 */
+    @Excel(name = "性别")
     private String expand3;
 
     /** 是否有已意向客户 */

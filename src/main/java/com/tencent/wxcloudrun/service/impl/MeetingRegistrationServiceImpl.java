@@ -178,7 +178,7 @@ public class MeetingRegistrationServiceImpl implements IMeetingRegistrationServi
 
             List<String >listPhoneNumber = new ArrayList<>();
             for (List<String> list :dataList){
-                String phoneNumber = list.get(4);
+                String phoneNumber = list.get(5);
                 MeetingRegistration meetingRegistration  = new MeetingRegistration();
                 meetingRegistration.setPhoneNumber(phoneNumber);
 
@@ -201,39 +201,39 @@ public class MeetingRegistrationServiceImpl implements IMeetingRegistrationServi
                     MeetingRegistration meetingRegistration = new MeetingRegistration();
 
 
-                    if (StringUtils.isNotBlank(list.get(1))) {
+                    if (StringUtils.isNotBlank(list.get(1)) ) {
                         i++;
                         meetingRegistration.setCustomerType(list.get(0));
                         meetingRegistration.setProvinceArea(list.get(1));
-                        meetingRegistration.setExpand2(list.get(2));
-
+                        meetingRegistration.setExpand2(list.get(2)); //区域
                         meetingRegistration.setAttendeeName(list.get(3));
-                        meetingRegistration.setPhoneNumber(list.get(4));
-                        meetingRegistration.setIsTraveling(list.get(5));
-                        meetingRegistration.setAccompanyingPersonnel(list.get(6));
-                        meetingRegistration.setHotelName(list.get(7));
-                        meetingRegistration.setRoomNumber(list.get(8));
-                        meetingRegistration.setBreakfastTime(list.get(9));
-                        meetingRegistration.setLunchTime(list.get(10));
-                        meetingRegistration.setDinnerTime(list.get(11));
-                        meetingRegistration.setMealLocation(list.get(12));
-                        meetingRegistration.setBanquetTime(list.get(13));
-                        meetingRegistration.setBanquetLocation(list.get(14));
-                        meetingRegistration.setBanquetSeating(list.get(15));
-                        meetingRegistration.setMeetingDate(list.get(16));
-                        meetingRegistration.setMeetingLocation(list.get(17));
-                        meetingRegistration.setTourVehicleArrangement(list.get(18));
+                        meetingRegistration.setExpand3(list.get(4));//性别
+                        meetingRegistration.setPhoneNumber(list.get(5));
+                        meetingRegistration.setIsTraveling(list.get(6));
+                        meetingRegistration.setAccompanyingPersonnel(list.get(7));
+                        meetingRegistration.setHotelName(list.get(8));
+                        meetingRegistration.setRoomNumber(list.get(9));
+                        meetingRegistration.setBreakfastTime(list.get(10));
+                        meetingRegistration.setLunchTime(list.get(11));
+                        meetingRegistration.setDinnerTime(list.get(12));
+                        meetingRegistration.setMealLocation(list.get(13));
+                        meetingRegistration.setBanquetTime(list.get(14));
+                        meetingRegistration.setBanquetLocation(list.get(15));
+                        meetingRegistration.setBanquetSeating(list.get(16));
+                        meetingRegistration.setMeetingDate(list.get(17));
+                        meetingRegistration.setMeetingLocation(list.get(18));
+                        meetingRegistration.setTourVehicleArrangement(list.get(19));
 
-                        if (list.size() >= 20) {
-                            meetingRegistration.setFactoryVisitVehicleArrangement(list.get(19));
-
-                        }
                         if (list.size() >= 21) {
-                            meetingRegistration.setMeetingSeating(list.get(20));
+                            meetingRegistration.setFactoryVisitVehicleArrangement(list.get(20));
 
                         }
                         if (list.size() >= 22) {
-                            meetingRegistration.setHasIntentionalCustomers(list.get(21));
+                            meetingRegistration.setMeetingSeating(list.get(21));
+
+                        }
+                        if (list.size() >= 23) {
+                            meetingRegistration.setHasIntentionalCustomers(list.get(22));
                         }
                         meetingRegistration.setCreateDate(DateUtil.getCurrentDateTimeSSStr());
                         meetingRegistration.setExpand1("1");
