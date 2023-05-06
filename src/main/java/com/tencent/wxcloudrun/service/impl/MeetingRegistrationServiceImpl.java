@@ -225,7 +225,9 @@ public class MeetingRegistrationServiceImpl implements IMeetingRegistrationServi
 //                        meetingRegistration.setMeetingDate(list.get(18));
 //                        meetingRegistration.setMeetingLocation(list.get(19));
                         meetingRegistration.setExpand5(list.get(19));
-                        meetingRegistration.setTourVehicleArrangement(list.get(20));
+                        if (list.size() >= 21) {
+                            meetingRegistration.setTourVehicleArrangement(list.get(20));
+                        }
 
                         if (list.size() >= 22) {
                             meetingRegistration.setFactoryVisitVehicleArrangement(list.get(21));
