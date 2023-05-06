@@ -264,7 +264,30 @@ public class MeetingRegistrationServiceImpl implements IMeetingRegistrationServi
                 s.setId(MyStringUtils.getUuid());
                 s.setUserid(meetingRegistration.getId());
                 meetingRegistrationMapper.insertcheckin(s);
-                ajaxResult = AjaxResult.success("签到成功");
+                Map<String,Object> data = new HashMap<>();
+                data.put( "客户类别", meetingRegistration.getCustomerType());
+//                data.put( "会议议程", "道道全第四届华东经销商会议议程");
+                data.put( "所属省区", meetingRegistration.getProvinceArea());
+                data.put( "参会人名称", meetingRegistration.getAttendeeName());
+                data.put( "联系电话", meetingRegistration.getPhoneNumber());
+                data.put( "是否参加旅游",meetingRegistration.getIsTraveling());
+                data.put( "随行人员", meetingRegistration.getAccompanyingPersonnel());
+                data.put( "住宿酒店名称", meetingRegistration.getHotelName());
+                data.put(  "房间号", meetingRegistration.getRoomNumber());
+                data.put( "早餐用餐时间", meetingRegistration.getBreakfastTime());
+                data.put( "中餐用餐时间",meetingRegistration.getLunchTime());
+                data.put( "晚餐用餐时间", meetingRegistration.getDinnerTime());
+                data.put( "用餐地点", meetingRegistration.getBanquetLocation());
+                data.put( "晚宴用餐时间", meetingRegistration.getBanquetTime());
+                data.put( "晚宴用餐地点", meetingRegistration.getBanquetLocation());
+                data.put( "晚宴坐席", meetingRegistration.getBanquetSeating());
+                data.put( "会议时间",meetingRegistration.getMeetingDate());
+                data.put( "会议地点", meetingRegistration.getMeetingLocation());
+                data.put( "旅游车辆安排",meetingRegistration.getTourVehicleArrangement());
+                data.put( "参观工厂车辆安排", meetingRegistration.getFactoryVisitVehicleArrangement());
+                data.put( "会议坐席", meetingRegistration.getMeetingSeating());
+                data.put(  "time", System.currentTimeMillis());
+                ajaxResult = AjaxResult.success("签到成功",data);
             }else{
                 ajaxResult = AjaxResult.error("当前手机号未登记，请核对");
             }
