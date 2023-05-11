@@ -510,9 +510,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                   AND m.expand_1 = 1
                   AND DATE_FORMAT( c.checktime, "%Y-%m-%d" )= #{createDate}
             ) AS 已签到客户数量,
-            COUNT(
-                DISTINCT CASE WHEN sd.accompanying_personnel IS NOT NULL 	AND sd.accompanying_personnel not like '%无%'  AND LENGTH( sd.accompanying_personnel )> 0 THEN sd.id ELSE NULL END
-                ) AS 随行人员数量,
+            IFNULL((
+                       SELECT
+                           sum(
+                                   convert(
+                                           IFNULL(m.expand_7,0)
+                                       ,signed)
+                               )
+                       FROM
+                           meeting_registration m
+                       WHERE
+                           m.province_area = sd.province_area
+                         AND m.expand_1 = 1
+                         AND m.accompanying_personnel not like '%无%'
+                   ),0) as 随行人员数量,
             COUNT( DISTINCT CASE WHEN sd.customer_type = 2 THEN sd.id ELSE NULL END ) AS 意向客户数量,
 
             (

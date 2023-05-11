@@ -507,10 +507,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                         LEFT JOIN meeting_registration m ON c.userid = m.id
                 WHERE
                     m.province_area = sd.province_area
+                  AND m.expand_1 = 1
                   AND DATE_FORMAT( c.checktime, "%Y-%m-%d" )= #{createDate}
             ) AS 已签到客户数量,
-            COUNT( DISTINCT CASE WHEN sd.accompanying_personnel IS NOT NULL AND LENGTH( sd.accompanying_personnel )> 0 THEN sd.id ELSE NULL END ) AS 随行人员数量,
+            COUNT(
+                DISTINCT CASE WHEN sd.accompanying_personnel IS NOT NULL 	AND sd.accompanying_personnel not like '%无%'  AND LENGTH( sd.accompanying_personnel )> 0 THEN sd.id ELSE NULL END
+                ) AS 随行人员数量,
             COUNT( DISTINCT CASE WHEN sd.customer_type = 2 THEN sd.id ELSE NULL END ) AS 意向客户数量,
+
             (
                 SELECT
                     count(
@@ -520,6 +524,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                 WHERE
                     m.province_area = sd.province_area
                   AND m.customer_type = 1
+                  AND m.expand_1 = 1
+                  AND id  IN ( SELECT userid FROM checkin c WHERE DATE_FORMAT( c.checktime, "%Y-%m-%d" )=#{createDate} )
+            ) AS 签到经销商数量,
+
+
+            (
+                SELECT
+                    count(
+                            DISTINCT ( m.id ))
+                FROM
+                    meeting_registration m
+                WHERE
+                    m.province_area = sd.province_area
+                  AND m.customer_type = 1
+                  AND m.expand_1 = 1
                   AND id NOT IN ( SELECT userid FROM checkin c WHERE DATE_FORMAT( c.checktime, "%Y-%m-%d" )=#{createDate} )
             ) AS 未签到经销商数量,
             (
@@ -531,8 +550,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                 WHERE
                     m.province_area = sd.province_area
                   AND m.customer_type = 2
+                  AND m.expand_1 = 1
+                  AND id  IN ( SELECT userid FROM checkin c WHERE DATE_FORMAT( c.checktime, "%Y-%m-%d" )= #{createDate} )
+            ) AS 签到意向客户数量,
+
+            (
+                SELECT
+                    count(
+                            DISTINCT ( m.id ))
+                FROM
+                    meeting_registration m
+                WHERE
+                    m.province_area = sd.province_area
+                  AND m.customer_type = 2
+                  AND m.expand_1 = 1
                   AND id NOT IN ( SELECT userid FROM checkin c WHERE DATE_FORMAT( c.checktime, "%Y-%m-%d" )= #{createDate} )
             ) AS 未签到意向客户数量,
+
+
             (
                 SELECT
                     count(
@@ -542,11 +577,28 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                 WHERE
                     m.province_area = sd.province_area
                   AND m.customer_type = 3
+                  AND m.expand_1 = 1
+                  AND id  IN ( SELECT userid FROM checkin c WHERE DATE_FORMAT( c.checktime, "%Y-%m-%d" )= #{createDate} )
+            ) AS 签到营销人员数量,
+            (
+                SELECT
+                    count(
+                            DISTINCT ( m.id ))
+                FROM
+                    meeting_registration m
+                WHERE
+                    m.province_area = sd.province_area
+                  AND m.customer_type = 3
+                  AND m.expand_1 = 1
                   AND id NOT IN ( SELECT userid FROM checkin c WHERE DATE_FORMAT( c.checktime, "%Y-%m-%d" )= #{createDate} )
             ) AS 未签到营销人员数量,
             #{createDate} AS 统计日期
         FROM
             `meeting_registration` sd
+
+
+        where
+            sd.expand_1 = 1
         GROUP BY
             sd.province_area
         ]]>

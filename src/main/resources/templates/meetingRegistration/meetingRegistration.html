@@ -218,7 +218,15 @@
                     },
                 {
                     field : 'accompanyingPersonnel', 
-                    title : '随行人员'
+                    title : '随行人员',
+                    formatter: function(value, row, index) {
+                        var html = "";
+                        if(row.expand7 && row.expand7!="0"){
+                            html = row.expand7;
+                        }
+                        html = html +"("+value+")";
+                        return html;
+                    }
                 },
                 {
                     field : 'hotelName', 
