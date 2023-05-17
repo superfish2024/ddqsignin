@@ -145,6 +145,7 @@
 
             modalName: "登记信息",
             pageSize:100000,
+            showFooter: true,
             pageList:[100000],
             columns: [{
                 checkbox: true
@@ -157,41 +158,171 @@
                 {
                     field : '应签到人数',
                     title : '应签到人数'
+                    ,
+                    footerFormatter:function (value) {
+
+                        var sumBalanceneedNum = 0;
+
+                        for (var i in value) {
+
+                            sumBalanceneedNum += parseFloat(value[i].应签到人数);
+                        }
+
+                        return sumBalanceneedNum ;
+
+                    }
                 },   {
                     field : '已签到客户数量',
-                    title : '已签到客户数量'
+                    title : '已签到人数'
+                    ,
+                    footerFormatter:function (value) {
+
+                        var sumBalanceneedNum = 0;
+
+                        for (var i in value) {
+
+                            sumBalanceneedNum += parseFloat(value[i].已签到客户数量);
+                        }
+
+                        return sumBalanceneedNum ;
+
+                    }
+                },
+                {
+                    field : '签到经销商数量',
+                    title : '已签到经销商数'
+                    ,
+                    footerFormatter:function (value) {
+
+                        var sumBalanceneedNum = 0;
+
+                        for (var i in value) {
+
+                            sumBalanceneedNum += parseFloat(value[i].签到经销商数量);
+                        }
+
+                        return sumBalanceneedNum ;
+
+                    }
+                },
+                {
+                    field : '未签到经销商数量',
+                    title : '未签到经销商数'
+                    ,
+                    footerFormatter:function (value) {
+
+                        var sumBalanceneedNum = 0;
+
+                        for (var i in value) {
+
+                            sumBalanceneedNum += parseFloat(value[i].未签到经销商数量);
+                        }
+
+                        return sumBalanceneedNum ;
+
+                    }
+                },
+                {
+                    field : '意向客户数量',
+                    title : '意向客户数'
+                    ,
+                    footerFormatter:function (value) {
+
+                        var sumBalanceneedNum = 0;
+
+                        for (var i in value) {
+
+                            sumBalanceneedNum += parseFloat(value[i].意向客户数量);
+                        }
+
+                        return sumBalanceneedNum ;
+
+                    }
+                },
+
+                {
+                    field : '签到意向客户数量',
+                    title : '已签到意向客户数'
+                    ,
+                    footerFormatter:function (value) {
+
+                        var sumBalanceneedNum = 0;
+
+                        for (var i in value) {
+
+                            sumBalanceneedNum += parseFloat(value[i].签到意向客户数量);
+                        }
+
+                        return sumBalanceneedNum ;
+
+                    }
+                },
+                {
+                    field : '未签到意向客户数量',
+                    title : '未签到意向客户数'
+                    ,
+                    footerFormatter:function (value) {
+
+                        var sumBalanceneedNum = 0;
+
+                        for (var i in value) {
+
+                            sumBalanceneedNum += parseFloat(value[i].未签到意向客户数量);
+                        }
+
+                        return sumBalanceneedNum ;
+
+                    }
+                },
+                {
+                    field : '签到营销人员数量',
+                    title : '已签到营销人员数'
+                    ,
+                    footerFormatter:function (value) {
+
+                        var sumBalanceneedNum = 0;
+
+                        for (var i in value) {
+
+                            sumBalanceneedNum += parseFloat(value[i].签到营销人员数量);
+                        }
+
+                        return sumBalanceneedNum ;
+
+                    }
+                },
+                {
+                    field : '未签到营销人员数量',
+                    title : '未签到营销人员数' ,
+                    footerFormatter:function (value) {
+
+                        var sumBalanceneedNum = 0;
+
+                        for (var i in value) {
+
+                            sumBalanceneedNum += parseFloat(value[i].未签到营销人员数量);
+                        }
+
+                        return sumBalanceneedNum ;
+
+                    }
                 },
                 {
                     field : '随行人员数量',
                     title : '随行人员数量'
-                },
-                {
-                    field : '意向客户数量',
-                    title : '意向客户数量'
-                },
-                {
-                    field : '签到经销商数量',
-                    title : '签到经销商数量'
-                },
-                {
-                    field : '未签到经销商数量',
-                    title : '未签到经销商数量'
-                },
-                {
-                    field : '签到意向客户数量',
-                    title : '签到意向客户数量'
-                },
-                {
-                    field : '未签到意向客户数量',
-                    title : '未签到意向客户数量'
-                },
-                {
-                    field : '签到营销人员数量',
-                    title : '签到营销人员数量'
-                },
-                {
-                    field : '未签到营销人员数量',
-                    title : '未签到营销人员数量'
+                    ,
+                    footerFormatter:function (value) {
+
+                        var sumBalanceneedNum = 0;
+
+                        for (var i in value) {
+
+                            sumBalanceneedNum += parseFloat(value[i].随行人员数量);
+                        }
+
+                        return sumBalanceneedNum ;
+
+                    }
                 },
                 {
                     field : '统计日期',

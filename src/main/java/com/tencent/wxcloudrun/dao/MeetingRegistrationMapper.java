@@ -66,6 +66,13 @@ public interface MeetingRegistrationMapper
     public int updateMeetingRegistration(MeetingRegistration meetingRegistration);
 
     /**
+     * 更具手机号进行数据更新
+     * @param meetingRegistration
+     * @return
+     */
+    public int updateMeetingRegistrationByphoneNumber(MeetingRegistration meetingRegistration);
+
+    /**
      * 修改
      *
      * @param list

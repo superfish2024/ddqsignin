@@ -444,6 +444,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         </set>
         where id = #{id}
     </update>
+    <update id="updateMeetingRegistrationByphoneNumber" parameterType="com.tencent.wxcloudrun.dto.MeetingRegistration">
+        update meeting_registration
+
+        <set>
+            <include refid="updateCondition" />
+        </set>
+        where phone_number = #{phoneNumber}
+    </update>
 
 
     <update id="updateMeetingRegistrationList" parameterType="com.tencent.wxcloudrun.dto.MeetingRegistration">

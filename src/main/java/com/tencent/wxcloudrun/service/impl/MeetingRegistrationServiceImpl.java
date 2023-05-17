@@ -170,19 +170,34 @@ public class MeetingRegistrationServiceImpl implements IMeetingRegistrationServi
 
     @Override
     @Transactional
-    public AjaxResult importZfbData(List<List<String>> dataList ) {
+    public AjaxResult importZfbData(List<List<String>> dataList ,boolean updateSupport) {
         AjaxResult result = AjaxResult.error();
         StringBuilder err = new StringBuilder("");
+
+        //更新用户列表
+        List<String> updateUserList = new ArrayList<>();
+
         if(dataList!=null && dataList.size()>0){
             int i = 0;
-
+            int j=0;
             List<String >listPhoneNumber = new ArrayList<>();
             for (List<String> list :dataList){
                 String phoneNumber = list.get(5);
                 MeetingRegistration meetingRegistration  = new MeetingRegistration();
                 meetingRegistration.setPhoneNumber(phoneNumber);
+                boolean ifBo = false;
+                String ifIphone =  checkNumberUnique(meetingRegistration);
+                if(updateSupport){//进行修改
+                    ifBo = true;
+                    if(!"0".equals(ifIphone)){
+                        updateUserList.add(meetingRegistration.getPhoneNumber());
+                    }
+                }else if("0".equals(ifIphone)){
+                    ifBo = true;
+                }
 
-                if(StringUtils.isBlank(phoneNumber) || "0".equals(checkNumberUnique(meetingRegistration))){
+
+                if(StringUtils.isBlank(phoneNumber) || ifBo){
                         if(StringUtils.isNotBlank(phoneNumber) ){
                             if(listPhoneNumber.contains(phoneNumber)){
                                 err =new StringBuilder(err) .append("</br>").append("手机号：").append(meetingRegistration.getPhoneNumber()).append("在当前文件存在重复！");
@@ -202,7 +217,7 @@ public class MeetingRegistrationServiceImpl implements IMeetingRegistrationServi
 
 
                     if (StringUtils.isNotBlank(list.get(1)) ) {
-                        i++;
+
                         meetingRegistration.setCustomerType(list.get(0));
                         meetingRegistration.setProvinceArea(list.get(1));
                         meetingRegistration.setExpand2(list.get(2)); //区域
@@ -210,47 +225,53 @@ public class MeetingRegistrationServiceImpl implements IMeetingRegistrationServi
                         meetingRegistration.setExpand3(list.get(4));//性别
                         meetingRegistration.setPhoneNumber(list.get(5));
                         meetingRegistration.setExpand6(list.get(6));//负责区域经理
-                        meetingRegistration.setIsTraveling(list.get(7));
-                        meetingRegistration.setExpand4(list.get(8));
-                        meetingRegistration.setAccompanyingPersonnel(list.get(9));
-                        meetingRegistration.setHotelName(list.get(10));
-                        meetingRegistration.setRoomNumber(list.get(11));
-                        meetingRegistration.setBreakfastTime(list.get(12));
-                        meetingRegistration.setLunchTime(list.get(13));
-                        meetingRegistration.setDinnerTime(list.get(14));
-                        meetingRegistration.setMealLocation(list.get(15));
-                        meetingRegistration.setBanquetTime(list.get(16));
-                        meetingRegistration.setBanquetLocation(list.get(17));
-                        meetingRegistration.setBanquetSeating(list.get(18));
+//                        meetingRegistration.setIsTraveling(list.get(7));
+//                        meetingRegistration.setExpand4(list.get(8));
+                        meetingRegistration.setAccompanyingPersonnel(list.get(7));
+                        meetingRegistration.setHotelName(list.get(8));
+                        meetingRegistration.setRoomNumber(list.get(9));
+                        meetingRegistration.setBreakfastTime(list.get(10));
+                        meetingRegistration.setLunchTime(list.get(11));
+                        meetingRegistration.setDinnerTime(list.get(12));
+                        meetingRegistration.setMealLocation(list.get(13));
+                        meetingRegistration.setBanquetTime(list.get(14));
+                        meetingRegistration.setBanquetLocation(list.get(15));
+                        meetingRegistration.setBanquetSeating(list.get(16));
 //                        meetingRegistration.setMeetingDate(list.get(18));
 //                        meetingRegistration.setMeetingLocation(list.get(19));
-                        meetingRegistration.setExpand5(list.get(19));
-                        if (list.size() >= 21) {
-                            meetingRegistration.setTourVehicleArrangement(list.get(20));
-                        }
-
-                        if (list.size() >= 22) {
-                            meetingRegistration.setFactoryVisitVehicleArrangement(list.get(21));
-
-                        }
+                        meetingRegistration.setExpand5(list.get(17));
+//                        if (list.size() >= 19) {
+//                            meetingRegistration.setTourVehicleArrangement(list.get(18));
+//                        }
+//
+//                        if (list.size() >= 20) {
+//                            meetingRegistration.setFactoryVisitVehicleArrangement(list.get(19));
+//
+//                        }
 //                        if (list.size() >= 22) {
 //                            meetingRegistration.setMeetingSeating(list.get(21));
 //
 //                        }
-                        if (list.size() >= 23) {
-                            meetingRegistration.setHasIntentionalCustomers(list.get(22));
+                        if (list.size() >= 19) {
+                            meetingRegistration.setHasIntentionalCustomers(list.get(18));
                         }
                         meetingRegistration.setCreateDate(DateUtil.getCurrentDateTimeSSStr());
                         meetingRegistration.setExpand1("1");
 
                         meetingRegistration.setId(MyStringUtils.getUuid());
-                        meetingRegistrationMapper.insertMeetingRegistration(meetingRegistration);
+                        if(updateSupport && updateUserList.contains(meetingRegistration.getPhoneNumber())){
+                            j++;
+                            meetingRegistrationMapper.updateMeetingRegistrationByphoneNumber(meetingRegistration);
+                        }else {
+                            i++;
+                            meetingRegistrationMapper.insertMeetingRegistration(meetingRegistration);
+                        }
 
                     }
                 }
             }
             if(StringUtils.isBlank(err.toString())) {
-                result = AjaxResult.success("成功导入:" + i + "个客户");
+                result = AjaxResult.success("成功导入:" + i + "个客户<br>"+"成功更新:" + j+ "个客户");
             }else{
                 result = AjaxResult.error(err.toString());
             }

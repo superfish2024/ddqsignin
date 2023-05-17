@@ -154,7 +154,7 @@ public class MeetingRegistrationController
 //        //打款成功用户 标记处理邀请奖励
 //        List<String > inviteList = new ArrayList<>();
             List<List<String>> dataList  =   ExcelUtil.importDataFromXls(file.getInputStream());
-           ajaxResult =   meetingRegistrationService.importZfbData(dataList);
+           ajaxResult =   meetingRegistrationService.importZfbData(dataList,updateSupport);
 
         }catch (Exception e){
             e.printStackTrace();
