@@ -239,7 +239,7 @@ public class MeetingRegistrationServiceImpl implements IMeetingRegistrationServi
                         meetingRegistration.setBanquetSeating(list.get(16));
 //                        meetingRegistration.setMeetingDate(list.get(18));
 
-                        meetingRegistration.setExpand5(list.get(17));
+
 //                        if (list.size() >= 19) {
 //                            meetingRegistration.setTourVehicleArrangement(list.get(18));
 //                        }
@@ -252,7 +252,8 @@ public class MeetingRegistrationServiceImpl implements IMeetingRegistrationServi
 //                            meetingRegistration.setMeetingSeating(list.get(21));
 //
 //                        }
-                        meetingRegistration.setMeetingLocation(list.get(18));
+                        meetingRegistration.setMeetingLocation(list.get(17));
+                        meetingRegistration.setExpand5(list.get(18));
 
                         if (list.size() >= 20) {
                             meetingRegistration.setHasIntentionalCustomers(list.get(19));
@@ -296,7 +297,7 @@ public class MeetingRegistrationServiceImpl implements IMeetingRegistrationServi
                 data.put( "客户类别", meetingRegistration.getCustomerType());
 //                data.put( "会议议程", "道道全第四届华东经销商会议议程");
                 data.put( "所属省区", meetingRegistration.getProvinceArea());
-                data.put( "参会人名称", meetingRegistration.getAttendeeName());
+                data.put( "参会人姓名", meetingRegistration.getAttendeeName());
                 data.put( "联系电话", meetingRegistration.getPhoneNumber());
                 data.put( "是否参加工业旅游",meetingRegistration.getIsTraveling());
                 data.put( "是否参加城市景点旅游", meetingRegistration.getExpand4());
