@@ -310,12 +310,12 @@ public class MeetingRegistrationServiceImpl implements IMeetingRegistrationServi
                 data.put( "用餐地点", meetingRegistration.getMealLocation());
                 data.put( "晚宴用餐时间", meetingRegistration.getBanquetTime());
                 data.put( "晚宴用餐地点", meetingRegistration.getBanquetLocation());
-                data.put( "晚宴坐席", meetingRegistration.getBanquetSeating());
+                data.put( "晚宴座席", meetingRegistration.getBanquetSeating());
                 data.put( "会议时间",meetingRegistration.getMeetingDate());
                 data.put( "会议地点", meetingRegistration.getMeetingLocation());
                 data.put( "旅游车辆安排",meetingRegistration.getTourVehicleArrangement());
                 data.put( "参观工厂车辆安排", meetingRegistration.getFactoryVisitVehicleArrangement());
-                data.put( "会议坐席", meetingRegistration.getMeetingSeating());
+                data.put( "会议座席", meetingRegistration.getMeetingSeating());
                 data.put( "培训分组", meetingRegistration.getExpand5());
                 data.put(  "time", System.currentTimeMillis());
                 ajaxResult = AjaxResult.success("签到成功",data);
